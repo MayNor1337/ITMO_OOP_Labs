@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings;
+using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings.EngineSettings;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
@@ -14,10 +14,10 @@ public class OmegaEngine : IEngine
 
     public OmegaEngine()
     {
-        _fuelConsumed = EngineSettings.JumpEngineOmega.FuelConsumed;
-        _rangeOfTravel = EngineSettings.JumpEngineOmega.RangeOfTravel;
-        _fuelConsumption = EngineSettings.JumpEngineOmega.FuelConsumption;
-        _whereCanMove = EngineSettings.JumpEngineOmega.WhereCanMove;
+        _fuelConsumed = JumpEngineOmegaSettings.FuelConsumed;
+        _rangeOfTravel = JumpEngineOmegaSettings.RangeOfTravel;
+        _fuelConsumption = JumpEngineOmegaSettings.FuelConsumption;
+        _whereCanMove = JumpEngineOmegaSettings.WhereCanMove;
     }
 
     public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)

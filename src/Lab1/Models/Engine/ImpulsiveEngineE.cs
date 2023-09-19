@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings;
+using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings.EngineSettings;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
@@ -15,11 +15,11 @@ public class ImpulsiveEngineE : IEngine
 
     public ImpulsiveEngineE()
     {
-        _startFuelPrice = EngineSettings.ImpulsiveEngineE.StartFuelPrice;
-        _acceleration = EngineSettings.ImpulsiveEngineE.Acceleration;
-        _fuelConsumed = EngineSettings.ImpulsiveEngineE.FuelConsumed;
-        _fuelСonsumptionPerSecond = EngineSettings.ImpulsiveEngineE.FuelСonsumptionPerSecond;
-        _whereCanMove = EngineSettings.ImpulsiveEngineE.WhereCanMove;
+        _startFuelPrice = ImpulsiveEngineESettings.StartFuelPrice;
+        _acceleration = ImpulsiveEngineESettings.Acceleration;
+        _fuelConsumed = ImpulsiveEngineESettings.FuelConsumed;
+        _fuelСonsumptionPerSecond = ImpulsiveEngineESettings.FuelСonsumptionPerSecond;
+        _whereCanMove = ImpulsiveEngineESettings.WhereCanMove;
     }
 
     public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)

@@ -1,13 +1,12 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings.ObstaclesSettings;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
+
+public class SmallAsteroid : Obstacle
 {
-    public class SmallAsteroid : Obstacle
+    public SmallAsteroid()
     {
-        public SmallAsteroid()
-        {
-            Damage = ObstaclesSettings.SmallAsteroid.Damage;
-            CollisionsAmount = ObstaclesSettings.SmallAsteroid.CollisionsAmount;
-        }
+        Damage = SmallAsteroidSettings.Damage;
+        CollisionsAmount = SmallAsteroidSettings.CollisionsAmount;
     }
 }

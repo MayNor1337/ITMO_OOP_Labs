@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings.ObstaclesSettings;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 
@@ -6,7 +6,7 @@ public class AntimatterFlares : Obstacle
 {
     public AntimatterFlares()
     {
-        Damage = ObstaclesSettings.AntimatterFlares.Damage;
-        CollisionsAmount = ObstaclesSettings.AntimatterFlares.CollisionsAmount;
+        Damage = AntimatterFlaresSettings.Damage;
+        CollisionsAmount = AntimatterFlaresSettings.CollisionsAmount;
     }
 }
