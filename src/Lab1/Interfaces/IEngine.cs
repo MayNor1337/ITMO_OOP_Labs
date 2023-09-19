@@ -1,9 +1,8 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Interfaces
+namespace Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+
+public interface IEngine
 {
-    public interface IEngine
-    {
-        bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel);
-    }
+    bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel);
 }

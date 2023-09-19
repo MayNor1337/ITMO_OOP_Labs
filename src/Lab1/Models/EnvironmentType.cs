@@ -2,7 +2,7 @@
 
 public enum EnvironmentType
 {
-    StandardSpace,
-    NebulaeHighDensity,
-    NebulaeNitrineParticles,
+    StandardSpace = 0,
+    NebulaeHighDensity = 1,
+    NebulaeNitrineParticles = 2,
 }

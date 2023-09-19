@@ -12,7 +12,8 @@ public record Section
     {
         Length = length;
         Type = type;
-        _obstacles = Enumerable.ToArray<Obstacle>(obstaclesVar);
+        _obstacles = Enumerable.ToArray<Obstacle>(PermittedObstacle.PermittedObstacles[(int)type].Where(obj =>
+            obstaclesVar.Any(obstacle => obj.GetType() == obstacle.GetType())));
     }
 
     public int Length { get; }

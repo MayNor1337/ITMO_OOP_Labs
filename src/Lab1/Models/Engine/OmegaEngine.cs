@@ -23,7 +23,7 @@ public class OmegaEngine : IEngine
     public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)
     {
         if (_whereCanMove.Any(item => item == type) == false
-            || lengthPath < _rangeOfTravel)
+            || lengthPath > _rangeOfTravel)
         {
             fuel = null;
             return false;

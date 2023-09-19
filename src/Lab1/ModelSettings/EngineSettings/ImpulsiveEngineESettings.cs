@@ -12,6 +12,5 @@ public record ImpulsiveEngineESettings
     public static readonly EnvironmentType[] WhereCanMove = new[]
     {
         EnvironmentType.StandardSpace,
-        EnvironmentType.NebulaeNitrineParticles,
     };
 }
