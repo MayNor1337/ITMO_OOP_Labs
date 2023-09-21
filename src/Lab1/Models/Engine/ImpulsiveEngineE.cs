@@ -14,22 +14,23 @@ public class ImpulsiveEngineE : IEngine
 
     public ImpulsiveEngineE()
     {
-        _startFuelPrice = 10f;
+        _startFuelPrice = 50;
         _acceleration = 5f;
         _fuelConsumed = FuelType.ActivePlasma;
-        _fuelСonsumptionPerSecond = 10f;
-        _whereCanMove = new[] { EnvironmentType.StandardSpace, };
+        _fuelСonsumptionPerSecond = 100f;
+        _whereCanMove = new[] { EnvironmentType.StandardSpace, EnvironmentType.NebulaeNitrineParticles, };
     }
 
-    public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)
+    public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel, out float time)
     {
+        time = 0;
         if (_whereCanMove.Any(item => item == type) == false)
         {
             fuel = null;
             return false;
         }
 
-        float time = (float)Math.Sqrt(_acceleration / (2 * lengthPath));
+        time = (float)Math.Sqrt(_acceleration / (2 * lengthPath));
         float fuelCount = _startFuelPrice + (time * _fuelСonsumptionPerSecond);
         fuel = new Fuel(_fuelConsumed, fuelCount);
 

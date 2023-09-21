@@ -38,7 +38,7 @@ public class Deflector : IProtectFromObstacles
             else
             {
                 overDamage = 0;
-                return true;
+                return false;
             }
         }
 

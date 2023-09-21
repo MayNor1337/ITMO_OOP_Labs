@@ -6,11 +6,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 
 public static class ShipCreator
 {
-    public static Ship CreatePleasureShuttle()
+    public static Ship CreatePleasureShuttle(
+        bool isGavePhotonDeflector = false)
     {
         var engines = new IEngine[] { new ImpulsiveEngineС() };
         int deflectorRang = 0;
-        bool isGavePhotonDeflector = false;
         int caseRang = 1;
         bool haveAntiNetrinEmmiter = false;
 
@@ -19,11 +19,11 @@ public static class ShipCreator
         return new Ship(engines, deflector, corpus, haveAntiNetrinEmmiter);
     }
 
-    public static Ship CreateVaclas()
+    public static Ship CreateVaclas(
+        bool isGavePhotonDeflector = false)
     {
         var engines = new IEngine[] { new ImpulsiveEngineE(), new GammaEngine() };
         int deflectorRang = 1;
-        bool isGavePhotonDeflector = false;
         int caseRang = 2;
         bool haveAntiNetrinEmmiter = false;
 
@@ -32,11 +32,11 @@ public static class ShipCreator
         return new Ship(engines, deflector, corpus, haveAntiNetrinEmmiter);
     }
 
-    public static Ship CreateMerediane()
+    public static Ship CreateMerediane(
+        bool havePhotonDeflector = false)
     {
         var engines = new IEngine[] { new ImpulsiveEngineE() };
         int deflectorRang = 2;
-        bool havePhotonDeflector = false;
         int caseRang = 2;
         bool haveAntiNetrinEmmiter = true;
 
@@ -45,11 +45,11 @@ public static class ShipCreator
         return new Ship(engines, deflector, corpus, haveAntiNetrinEmmiter);
     }
 
-    public static Ship CreateStella()
+    public static Ship CreateStella(
+        bool havePhotonDeflector = false)
     {
         var engines = new IEngine[] { new ImpulsiveEngineС(), new OmegaEngine() };
         int deflectorRang = 1;
-        bool havePhotonDeflector = false;
         int caseRang = 1;
         bool haveAntiNetrinEmmiter = false;
 
@@ -58,11 +58,11 @@ public static class ShipCreator
         return new Ship(engines, deflector, corpus, haveAntiNetrinEmmiter);
     }
 
-    public static Ship CreateAvgur()
+    public static Ship CreateAvgur(
+        bool havePhotonDeflector = false)
     {
         var engines = new IEngine[] { new ImpulsiveEngineС(), new AlphaEngine() };
         int deflectorRang = 3;
-        bool havePhotonDeflector = false;
         int caseRang = 3;
         bool haveAntiNetrinEmmiter = false;
 

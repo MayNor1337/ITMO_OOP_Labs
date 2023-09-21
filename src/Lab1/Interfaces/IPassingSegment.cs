@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 
 public interface IPassingSegment
 {
-    public Results PassageSegment(Section section, out Fuel? fuel);
+    public Results PassageSegment(Section section, out Fuel? fuel, out float time);
 }

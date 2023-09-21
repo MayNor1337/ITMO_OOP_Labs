@@ -2,6 +2,7 @@
 
 public enum FuelType
 {
-    ActivePlasma,
-    GravitonMatter,
+    None = 0,
+    ActivePlasma = 1,
+    GravitonMatter = 2,
 }

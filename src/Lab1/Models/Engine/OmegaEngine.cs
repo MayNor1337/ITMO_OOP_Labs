@@ -14,13 +14,14 @@ public class OmegaEngine : IEngine
     public OmegaEngine()
     {
         _fuelConsumed = FuelType.GravitonMatter;
-        _rangeOfTravel = 100f;
+        _rangeOfTravel = 120f;
         _fuelConsumption = 10f;
         _whereCanMove = new[] { EnvironmentType.NebulaeHighDensity };
     }
 
-    public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)
+    public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel, out float time)
     {
+        time = 0;
         if (_whereCanMove.Any(item => item == type) == false
             || lengthPath > _rangeOfTravel)
         {

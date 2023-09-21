@@ -17,7 +17,7 @@ public class ImpulsiveEngineС : IEngine
         _speed = 5f;
         _fuelConsumed = FuelType.ActivePlasma;
         _fuelСonsumptionPerSecond = 10f;
-        _whereCanMove = new[] { EnvironmentType.StandardSpace };
+        _whereCanMove = new[] { EnvironmentType.StandardSpace, EnvironmentType.NebulaeNitrineParticles, };
     }
 
     public Fuel CalculateSpentFuel(int lengthPath)
@@ -27,15 +27,16 @@ public class ImpulsiveEngineС : IEngine
         return new Fuel(_fuelConsumed, fuel);
     }
 
-    public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)
+    public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel, out float time)
     {
+        time = 0;
         if (_whereCanMove.Any(item => item == type) == false)
         {
             fuel = null;
             return false;
         }
 
-        float time = lengthPath / _speed;
+        time = lengthPath / _speed;
         float fuelCount = _startFuelPrice + (time * _fuelСonsumptionPerSecond);
         fuel = new Fuel(_fuelConsumed, fuelCount);
 

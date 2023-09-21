@@ -2,6 +2,7 @@
 
 public enum Results
 {
+    UnknownResult = 0,
     Success,
     ShipLoss,
     ShipDestruction,

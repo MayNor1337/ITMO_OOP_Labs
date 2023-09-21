@@ -24,7 +24,7 @@ public class Ship : IPassingSegment
         _haveAntiNetrinEmmiter = antiNetrinEmmiter;
     }
 
-    public Results PassageSegment(Section section, out Fuel? fuel)
+    public Results PassageSegment(Section section, out Fuel? fuel, out float time)
     {
         if (section == null)
             throw new ArgumentNullException(nameof(section));
@@ -33,11 +33,12 @@ public class Ship : IPassingSegment
 
         if (intermediateResults != Results.Success)
         {
+            time = 0;
             fuel = null;
             return intermediateResults;
         }
 
-        return ChekingFlyOpportunity(section, out fuel);
+        return ChekingFlyOpportunity(section, out fuel, out time);
     }
 
     private Results CheckingCollisions(Section section)
@@ -68,16 +69,17 @@ public class Ship : IPassingSegment
         return Results.Success;
     }
 
-    private Results ChekingFlyOpportunity(Section section, out Fuel? fuel)
+    private Results ChekingFlyOpportunity(Section section, out Fuel? fuel, out float time)
     {
         foreach (IEngine engine in _engines)
         {
-            if (engine.TryPassTrack(section.Type, section.Length, out fuel))
+            if (engine.TryPassTrack(section.Type, section.Length, out fuel, out time))
             {
                 return Results.Success;
             }
         }
 
+        time = 0;
         fuel = null;
         return Results.ShipLoss;
     }
