@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
@@ -12,8 +13,13 @@ public record Section
     {
         Length = length;
         Type = type;
-        _obstacles = Enumerable.ToArray<Obstacle>(PermittedObstacle.PermittedObstacles[(int)type].Where(obj =>
-            obstaclesVar.Any(obstacle => obj.GetType() == obstacle.GetType())));
+        Obstacle[] tempObstacles = Enumerable.ToArray(obstaclesVar);
+        if (tempObstacles.Any(obstacle =>
+                PermittedObstacle.PermittedObstacles[(int)type].All(permittedObstacle =>
+                    obstacle.GetType() != permittedObstacle.GetType())))
+            throw new ArgumentException("Unacceptable obstacles");
+
+        _obstacles = tempObstacles;
     }
 
     public int Length { get; }
