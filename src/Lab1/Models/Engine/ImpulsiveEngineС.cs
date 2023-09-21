@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings.EngineSettings;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
@@ -14,11 +13,11 @@ public class ImpulsiveEngineС : IEngine
 
     public ImpulsiveEngineС()
     {
-        _startFuelPrice = ImpulsiveEngineСSettings.StartFuelPrice;
-        _speed = ImpulsiveEngineСSettings.Speed;
-        _fuelConsumed = ImpulsiveEngineСSettings.FuelConsumed;
-        _fuelСonsumptionPerSecond = ImpulsiveEngineСSettings.FuelСonsumptionPerSecond;
-        _whereCanMove = ImpulsiveEngineСSettings.WhereCanMove;
+        _startFuelPrice = 10f;
+        _speed = 5f;
+        _fuelConsumed = FuelType.ActivePlasma;
+        _fuelСonsumptionPerSecond = 10f;
+        _whereCanMove = new[] { EnvironmentType.StandardSpace };
     }
 
     public Fuel CalculateSpentFuel(int lengthPath)

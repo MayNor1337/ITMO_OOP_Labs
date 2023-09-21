@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.ModelSettings.EngineSettings;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
@@ -13,10 +12,10 @@ public class AlphaEngine : IEngine
 
     public AlphaEngine()
     {
-        _fuelConsumed = JumpEngineAlphaSettings.FuelConsumed;
-        _rangeOfTravel = JumpEngineAlphaSettings.RangeOfTravel;
-        _fuelConsumption = JumpEngineAlphaSettings.FuelConsumption;
-        _whereCanMove = JumpEngineAlphaSettings.WhereCanMove;
+        _fuelConsumed = FuelType.GravitonMatter;
+        _rangeOfTravel = 100f;
+        _fuelConsumption = 10f;
+        _whereCanMove = new[] { EnvironmentType.NebulaeHighDensity };
     }
 
     public bool TryPassTrack(EnvironmentType type, int lengthPath, out Fuel? fuel)
