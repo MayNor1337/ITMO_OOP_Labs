@@ -26,7 +26,7 @@ public class WalkingShuttle : IShip
         return new DamageShipResult.Survived();
     }
 
-    public DamageShipResult TakeRadiationDamage(float damage)
+    public DamageShipResult TakeRadiationDamage()
     {
         return new DamageShipResult.Destroyed();
     }

@@ -1,6 +1,7 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 

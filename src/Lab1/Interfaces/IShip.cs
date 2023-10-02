@@ -6,5 +6,5 @@ public interface IShip
 {
     public DamageShipResult TakePhysicalDamage(float damage);
 
-    public DamageShipResult TakeRadiationDamage(float damage);
+    public DamageShipResult TakeRadiationDamage();
 }
