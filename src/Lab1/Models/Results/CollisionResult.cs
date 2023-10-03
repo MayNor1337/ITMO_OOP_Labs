@@ -8,5 +8,5 @@ public abstract record CollisionResult
 
     public sealed record MaterialCollisionOccurred(float Damage) : CollisionResult;
 
-    public sealed record RadiationCollisionOccurred(float Damage) : CollisionResult;
+    public sealed record RadiationCollisionOccurred() : CollisionResult;
 }

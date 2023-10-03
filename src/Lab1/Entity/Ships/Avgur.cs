@@ -5,22 +5,22 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component;
 
-public class Vaclas : IShip, IHaveExponentialAcceleration, IHaveJumpEngine
+public class Avgur : IShip
 {
     private readonly IImpulsiveEngine _impulsiveEngine;
     private readonly IJumpEngine _jumpEngine;
     private readonly IDeflector _deflector;
     private readonly ICorpus _corpus;
 
-    public Vaclas(bool hasPotonicDeflectors = false)
+    public Avgur(bool hasPotonicDeflectors = false)
     {
         _impulsiveEngine = new ImpulsiveEngineE();
-        _jumpEngine = new GammaEngine();
+        _jumpEngine = new AlphaEngine();
         _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(new DeflectorFirstRank())
             : new DeflectorFirstRank();
-        _corpus = new MediumCorpus();
+        _corpus = new LightCorpus();
     }
 
     public DamageShipResult TakePhysicalDamage(float damage)

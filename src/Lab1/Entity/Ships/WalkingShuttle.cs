@@ -12,7 +12,7 @@ public class WalkingShuttle : IShip
 
     public WalkingShuttle()
     {
-        _impulsiveEngine = new ImpulsiveEngineС();
+        _impulsiveEngine = new ImpulsiveEngineC();
         _corpus = new LightCorpus();
     }
 

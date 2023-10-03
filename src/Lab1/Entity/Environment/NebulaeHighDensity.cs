@@ -36,9 +36,9 @@ public class NebulaeHighDensity : IEnviroment
                 continue;
             }
 
-            if (result is CollisionResult.RadiationCollisionOccurred radiationCollision)
+            if (result is CollisionResult.RadiationCollisionOccurred)
             {
-                if (ship.TakeRadiationDamage(radiationCollision.Damage) is DamageShipResult.Destroyed)
+                if (ship.TakeRadiationDamage() is DamageShipResult.Destroyed)
                 {
                     return new PassageResult.CrewDied();
                 }

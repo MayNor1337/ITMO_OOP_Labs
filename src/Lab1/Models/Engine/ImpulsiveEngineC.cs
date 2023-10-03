@@ -2,14 +2,14 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
-public class ImpulsiveEngineС : IImpulsiveEngine
+public class ImpulsiveEngineC : IImpulsiveEngine
 {
     private readonly float _startFuelPrice;
     private readonly float _speed;
     private readonly FuelType _fuelType;
     private readonly float _fuelСonsumptionPerSecond;
 
-    public ImpulsiveEngineС()
+    public ImpulsiveEngineC()
     {
         _startFuelPrice = 10f;
         _speed = 5f;

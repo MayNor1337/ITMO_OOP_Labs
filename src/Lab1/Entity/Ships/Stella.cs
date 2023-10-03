@@ -7,20 +7,20 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 
-public class Vaclas : IShip, IHaveExponentialAcceleration, IHaveJumpEngine
+public class Stella : IShip, IHaveJumpEngine
 {
     private readonly IImpulsiveEngine _impulsiveEngine;
     private readonly IJumpEngine _jumpEngine;
     private readonly IDeflector _deflector;
     private readonly ICorpus _corpus;
 
-    public Vaclas(bool hasPotonicDeflectors = false)
+    public Stella(bool hasPotonicDeflectors = false)
     {
-        _impulsiveEngine = new ImpulsiveEngineE();
-        _jumpEngine = new GammaEngine();
+        _impulsiveEngine = new ImpulsiveEngineC();
+        _jumpEngine = new OmegaEngine();
         _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(new DeflectorFirstRank())
             : new DeflectorFirstRank();
-        _corpus = new MediumCorpus();
+        _corpus = new LightCorpus();
     }
 
     public DamageShipResult TakePhysicalDamage(float damage)

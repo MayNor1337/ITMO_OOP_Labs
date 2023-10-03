@@ -4,7 +4,9 @@ public record TakeDamageResult
 {
     private TakeDamageResult() { }
 
-    public sealed record Broke : TakeDamageResult;
+    public record Broke : TakeDamageResult;
+
+    public sealed record BrokeAndOverDamage(float OverDamage) : Broke;
 
     public sealed record Normal : TakeDamageResult;
 }

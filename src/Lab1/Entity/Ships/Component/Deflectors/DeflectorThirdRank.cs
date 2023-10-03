@@ -1,8 +1,9 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Deflectors;
 
-public class DeflectorThirdRank
+public class DeflectorThirdRank : IDeflector
 {
     private float _strengthPoints;
 
@@ -11,7 +12,7 @@ public class DeflectorThirdRank
         _strengthPoints = 20f;
     }
 
-    public bool IsWorks { get; private set; } = true;
+    public bool IsWorks { get; set; } = true;
 
     public TakeDamageResult TakeDamage(float damage)
     {

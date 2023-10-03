@@ -13,6 +13,8 @@ public class DeflectorWithPhoton : IDeflector
         _deflector = deflector;
     }
 
+    public bool IsWorks => _deflector.IsWorks;
+
     public TakeDamageResult ReflectRadiation()
     {
         --_amountWarhead;

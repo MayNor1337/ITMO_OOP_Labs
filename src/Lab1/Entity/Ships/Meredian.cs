@@ -2,24 +2,21 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 
-public class Vaclas : IShip, IHaveExponentialAcceleration, IHaveJumpEngine
+public class Meredian : IShip, IHaveAntiNitrineEmitter
 {
     private readonly IImpulsiveEngine _impulsiveEngine;
-    private readonly IJumpEngine _jumpEngine;
     private readonly IDeflector _deflector;
     private readonly ICorpus _corpus;
 
-    public Vaclas(bool hasPotonicDeflectors = false)
+    public Meredian(bool hasPotonicDeflectors = false)
     {
         _impulsiveEngine = new ImpulsiveEngineE();
-        _jumpEngine = new GammaEngine();
-        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(new DeflectorFirstRank())
-            : new DeflectorFirstRank();
+        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(new DeflectorSecondRank())
+            : new DeflectorSecondRank();
         _corpus = new MediumCorpus();
     }
 

@@ -2,5 +2,5 @@
 
 public interface IDeflector : IDamageable
 {
-    public bool IsWorks { get; protected set; }
+    public bool IsWorks { get; }
 }
