@@ -8,10 +8,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 public class NebulaeHighDensity : IEnviroment
 {
     private ICanExistInNebulaeHighDensity[] _obstacles;
+    private readonly int _length;
 
-    public NebulaeHighDensity(IReadOnlyCollection<ICanExistInNebulaeHighDensity> obstacles)
+    public NebulaeHighDensity(IReadOnlyCollection<ICanExistInNebulaeHighDensity> obstacles, int length)
     {
         _obstacles = obstacles.ToArray();
+        _length = length;
     }
 
     public PassageResult CalculationPassage(IShip ship)
