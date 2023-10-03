@@ -14,7 +14,7 @@ public class Path
         _enviroments = enviroments.ToArray();
     }
 
-    private PassingPathResult LetShip(IShip ship)
+    public PassingPathResult LetShip(IShip ship)
     {
         foreach (IEnviroment enviroment in _enviroments)
         {

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Systems;
+using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
@@ -15,8 +16,8 @@ public class ThirdTest
         {
             new object[]
             {
-                ShipCreator.CreateVaclas(),
-                Results.ShipDestruction,
+                new Vaclas(),
+                new PassingPathResult.DestructionShip(),
             },
         };
 
@@ -25,8 +26,8 @@ public class ThirdTest
         {
             new object[]
             {
-                ShipCreator.CreateAvgur(),
-                Results.Success,
+                new Avgur(),
+                new PassingPathResult.Success(),
             },
         };
 
@@ -35,8 +36,8 @@ public class ThirdTest
         {
             new object[]
             {
-                ShipCreator.CreateMerediane(),
-                Results.Success,
+                new Meredian(),
+                new PassingPathResult.Success(),
             },
         };
 
@@ -44,13 +45,14 @@ public class ThirdTest
     [MemberData(nameof(Vaclas))]
     [MemberData(nameof(Avgur))]
     [MemberData(nameof(Merediane))]
-    public void T3(Ship ship, Results referenceResult)
+    public void T3(IShip ship, PassingPathResult referenceResult)
     {
         // Arrange
-        var sections = new Section[] { new Section(30, EnvironmentType.NebulaeNitrineParticles, new Obstacle[] { new CosmoWhale() }) };
+        var standardSpace = new NebulaeNitrineParticles(new[] { new CosmoWhale() });
+        var path = new Path(new[] { standardSpace });
 
         // Act
-        Results result = TrySystem.CheckPassage(ship, sections, out _);
+        PassingPathResult result = path.LetShip(ship);
 
         // Assert
         Assert.True(result == referenceResult);

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
@@ -9,7 +8,7 @@ public class StandardSpace : IEnviroment
 {
     private ICanExistInStandardSpace[] _obstacles;
 
-    public StandardSpace(IReadOnlyCollection<ICanExistInStandardSpace> obstacles)
+    public StandardSpace(ICanExistInStandardSpace[] obstacles)
     {
         _obstacles = obstacles.ToArray();
     }

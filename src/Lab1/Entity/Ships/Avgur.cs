@@ -5,7 +5,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 
 public class Avgur : IShip
 {

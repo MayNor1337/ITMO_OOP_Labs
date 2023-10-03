@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Systems;
+using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
@@ -15,8 +16,8 @@ public class SecondTest
         {
             new object[]
             {
-                ShipCreator.CreateAvgur(),
-                Results.CrewDeath,
+                new Avgur(),
+                new PassingPathResult.CrewDeath(),
             },
         };
 
@@ -25,23 +26,24 @@ public class SecondTest
         {
             new object[]
             {
-                ShipCreator.CreateAvgur(true),
-                Results.Success,
+                new Avgur(true),
+                new PassingPathResult.Success(),
             },
         };
 
     [Theory]
     [MemberData(nameof(Avgur))]
     [MemberData(nameof(AvgurWithPhotonDeflector))]
-    public void T2(Ship ship, Results referenceResult)
+    public void T2(IShip ship, PassingPathResult referenceResult)
     {
         // Arrange
-        var sections = new Section[] { new Section(30, EnvironmentType.NebulaeHighDensity, new Obstacle[] { new AntimatterFlares() }) };
+        var standardSpace = new NebulaeHighDensity(new[] { new AntimatterFlares() });
+        var path = new Path(new[] { standardSpace });
 
         // Act
-        Results result = TrySystem.CheckPassage(ship, sections, out _);
+        PassingPathResult result = path.LetShip(ship);
 
         // Assert
-        Assert.True(result == referenceResult);
+        Assert.True(result.GetType() == referenceResult.GetType());
     }
 }
