@@ -4,7 +4,7 @@ public record JumpResult
 {
     private JumpResult() { }
 
-    public sealed record Success(ActivePlasma ActivePlasma) : JumpResult;
+    public sealed record Success(GravitonMatter GravitonMatter) : JumpResult;
 
     public sealed record Fail : JumpResult;
 }

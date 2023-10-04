@@ -1,3 +1,8 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
-public interface IHaveJumpEngine { }
+namespace Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+
+public interface IHaveJumpEngine
+{
+    public JumpResult CheckPossibilityJumping(int lenght);
+}

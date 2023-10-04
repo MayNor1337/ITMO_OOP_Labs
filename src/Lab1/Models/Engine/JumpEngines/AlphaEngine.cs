@@ -1,22 +1,24 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
 
 public class AlphaEngine : IJumpEngine
 {
-    private readonly FuelType _fuelConsumed;
-    private readonly float _rangeOfTravel;
+    private readonly int _rangeOfTravel;
     private readonly float _fuelConsumption;
 
     public AlphaEngine()
     {
-        _fuelConsumed = FuelType.GravitonMatter;
-        _rangeOfTravel = 90f;
-        _fuelConsumption = 10f;
+        _rangeOfTravel = 90;
+        _fuelConsumption = 10;
     }
 
-    public bool TryPassTrack(int lengthPath)
+    public JumpResult CheckPossibilityJumping(int lenght)
     {
-        return lengthPath <= _rangeOfTravel;
+        if (lenght <= _rangeOfTravel)
+            return new JumpResult.Success(new GravitonMatter(_fuelConsumption));
+
+        return new JumpResult.Fail();
     }
 }

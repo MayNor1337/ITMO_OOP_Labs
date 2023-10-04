@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 
 public class NebulaeHighDensity : IEnviroment
 {
-    private ICanExistInNebulaeHighDensity[] _obstacles;
     private readonly int _length;
+    private ICanExistInNebulaeHighDensity[] _obstacles;
 
-    public NebulaeHighDensity(IReadOnlyCollection<ICanExistInNebulaeHighDensity> obstacles, int length)
+    public NebulaeHighDensity(IEnumerable<ICanExistInNebulaeHighDensity> obstacles, int length)
     {
         _obstacles = obstacles.ToArray();
         _length = length;
@@ -18,9 +19,15 @@ public class NebulaeHighDensity : IEnviroment
 
     public PassageResult CalculationPassage(IShip ship)
     {
-        if (ship is IHaveJumpEngine == false)
+        JumpResult result = JumpChecking(ship);
+        if (result is JumpResult.Success jumpResult == false)
             return new PassageResult.ImpossibleOvercome();
 
+        return CheckingCollisionWithObstacles(ship, jumpResult.GravitonMatter);
+    }
+
+    private PassageResult CheckingCollisionWithObstacles(IShip ship, GravitonMatter gravitonMatter)
+    {
         foreach (IObstacle obstacle in _obstacles)
         {
             CollisionResult result = obstacle.CollisionHandling(ship);
@@ -49,6 +56,14 @@ public class NebulaeHighDensity : IEnviroment
             }
         }
 
-        return new PassageResult.Success();
+        return new PassageResult.Success(gravitonMatter);
+    }
+
+    private JumpResult JumpChecking(IShip ship)
+    {
+        if (ship is IHaveJumpEngine jumpShip)
+            return jumpShip.CheckPossibilityJumping(_length);
+
+        return new JumpResult.Fail();
     }
 }

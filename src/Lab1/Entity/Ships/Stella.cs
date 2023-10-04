@@ -1,6 +1,7 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Corpuses;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
@@ -18,26 +19,24 @@ public class Stella : IShip, IHaveJumpEngine
     {
         _impulsiveEngine = new ImpulsiveEngineC();
         _jumpEngine = new OmegaEngine();
-        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(new DeflectorFirstRank())
-            : new DeflectorFirstRank();
+        IDeflector standardDeflector = new DeflectorFirstRank();
+        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(standardDeflector)
+            : standardDeflector;
         _corpus = new LightCorpus();
     }
 
     public DamageShipResult TakePhysicalDamage(float damage)
     {
-        if (_deflector.IsWorks)
+        TakeDamageResult result = _deflector.TakeDamage(damage);
+        if (result is TakeDamageResult.Broke)
         {
-            TakeDamageResult result = _deflector.TakeDamage(damage);
-            if (result is TakeDamageResult.Broke)
+            if (result is TakeDamageResult.BrokeAndOverDamage brokeResult)
             {
-                if (result is TakeDamageResult.BrokeAndOverDamage brokeResult)
-                {
-                    damage = brokeResult.OverDamage;
-                }
-                else
-                {
-                    return new DamageShipResult.Survived();
-                }
+                damage = brokeResult.OverDamage;
+            }
+            else
+            {
+                return new DamageShipResult.Survived();
             }
         }
 
@@ -57,5 +56,15 @@ public class Stella : IShip, IHaveJumpEngine
             return new DamageShipResult.Survived();
 
         return new DamageShipResult.Destroyed();
+    }
+
+    public GravitonMatter CalculatingCostsForPath(int lenght)
+    {
+        return _impulsiveEngine.CalculatingCostsForPath(lenght);
+    }
+
+    public JumpResult CheckPossibilityJumping(int lenght)
+    {
+        return _jumpEngine.CheckPossibilityJumping(lenght);
     }
 }

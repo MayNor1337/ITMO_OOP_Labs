@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
@@ -18,7 +17,6 @@ public class FirstTest
             new object[]
             {
             new WalkingShuttle(),
-            new PassingPathResult.ShipLoss(),
             },
         };
 
@@ -28,23 +26,22 @@ public class FirstTest
                 new object[]
                 {
                     new Avgur(),
-                    new PassingPathResult.ShipLoss(),
                 },
             };
 
     [Theory]
     [MemberData(nameof(WalkingShuttle))]
     [MemberData(nameof(Avgur))]
-    public void T1(IShip ship, PassingPathResult referenceResult)
+    public void IShip_LetShip_ImpossibleLet(IShip ship)
     {
         // Arrange
-        var standardSpace = new StandardSpace(Array.Empty<ICanExistInStandardSpace>());
-        var path = new Path(new[] { standardSpace });
+        var nebulaeHighDensity = new NebulaeHighDensity(Array.Empty<ICanExistInNebulaeHighDensity>(), 120);
+        var path = new Path(new[] { nebulaeHighDensity });
 
         // Act
         PassingPathResult result = path.LetShip(ship);
 
         // Assert
-        Assert.True(result.GetType() == referenceResult.GetType());
+        Assert.True(result is PassingPathResult.Impossible);
     }
 }

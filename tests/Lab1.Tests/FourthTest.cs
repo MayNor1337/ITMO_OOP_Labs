@@ -1,9 +1,10 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
+using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Systems;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
@@ -14,34 +15,31 @@ public class FourthTest
     public void T4()
     {
         // Arrange
-        Ship pleasureShuttle = ShipCreator.CreatePleasureShuttle();
-        Ship vaclas = ShipCreator.CreateVaclas();
-        var sections = new Section[] { new Section(30, EnvironmentType.StandardSpace, Array.Empty<Obstacle>()) };
-        var pleasureShuttleResultsData = new ResultsData();
-        var vaclasResultsData = new ResultsData();
+        var walkingShuttle = new WalkingShuttle();
+        var vaclas = new Vaclas();
+        var standardSpace = new StandardSpace(Array.Empty<ICanExistInStandardSpace>(), 99);
+        var path = new Path(new[] { standardSpace });
 
         // Act
-        TrySystem.CheckPassage(pleasureShuttle, sections, out pleasureShuttleResultsData);
-        TrySystem.CheckPassage(vaclas, sections, out vaclasResultsData);
+        PassingPathResult walkingShuttleResult = path.LetShip(walkingShuttle);
+        PassingPathResult vaclasResults = path.LetShip(vaclas);
 
-        if (pleasureShuttleResultsData == null)
-            throw new ArgumentNullException(nameof(pleasureShuttleResultsData));
-        if (vaclasResultsData == null)
-            throw new ArgumentNullException(nameof(vaclasResultsData));
-
-        float pricePleasureShuttle = 0;
-        foreach (Fuel data in pleasureShuttleResultsData.Fuel)
+        if (walkingShuttleResult is PassingPathResult.Success walkingShuttleFuel == false)
         {
-            pricePleasureShuttle += data.Amount * FuelExchange.FuelPrice[(int)data.FuelType];
+            Assert.True(false);
+            return;
         }
 
-        float priceVaclas = 0;
-        foreach (Fuel data in vaclasResultsData.Fuel)
+        if (vaclasResults is PassingPathResult.Success vaclasFuel == false)
         {
-            priceVaclas += data.Amount * FuelExchange.FuelPrice[(int)data.FuelType];
+            Assert.True(false);
+            return;
         }
+
+        float walkingShuttlePrice = FuelsStockMarket.CostCalculation(walkingShuttleFuel.Fuel);
+        float vaclasPrice = FuelsStockMarket.CostCalculation(vaclasFuel.Fuel);
 
         // Assert
-        Assert.True(pricePleasureShuttle < priceVaclas);
+        Assert.True(walkingShuttlePrice < vaclasPrice);
     }
 }

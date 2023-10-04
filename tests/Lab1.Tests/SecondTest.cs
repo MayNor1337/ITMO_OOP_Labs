@@ -4,6 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
@@ -11,39 +12,44 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
 public class SecondTest
 {
-    public static IEnumerable<object[]> Avgur =>
+    private static FuelStorage voidFuel = new FuelStorage();
+
+    public static IEnumerable<object[]> Vaclas =>
         new List<object[]>
         {
             new object[]
             {
-                new Avgur(),
+                new Vaclas(),
                 new PassingPathResult.CrewDeath(),
             },
         };
 
-    public static IEnumerable<object[]> AvgurWithPhotonDeflector =>
+    public static IEnumerable<object[]> VaclasWithPhotonDeflector =>
         new List<object[]>
         {
             new object[]
             {
-                new Avgur(true),
-                new PassingPathResult.Success(),
+                new Vaclas(true),
+                new PassingPathResult.Success(voidFuel),
             },
         };
 
     [Theory]
-    [MemberData(nameof(Avgur))]
-    [MemberData(nameof(AvgurWithPhotonDeflector))]
+    [MemberData(nameof(Vaclas))]
+    [MemberData(nameof(VaclasWithPhotonDeflector))]
     public void T2(IShip ship, PassingPathResult referenceResult)
     {
         // Arrange
-        var standardSpace = new NebulaeHighDensity(new[] { new AntimatterFlares() });
-        var path = new Path(new[] { standardSpace });
+        var nebulaeHighDensity = new NebulaeHighDensity(new[] { new AntimatterFlares() }, 99);
+        var path = new Path(new[] { nebulaeHighDensity });
 
         // Act
         PassingPathResult result = path.LetShip(ship);
 
+        if (result is PassingPathResult.Success)
+            result = new PassingPathResult.Success(voidFuel);
+
         // Assert
-        Assert.True(result.GetType() == referenceResult.GetType());
+        Assert.True(result == referenceResult);
     }
 }

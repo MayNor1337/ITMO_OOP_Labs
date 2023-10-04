@@ -1,12 +1,13 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Corpuses;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 
-public class Meredian : IShip, IHaveAntiNitrineEmitter
+public class Meredian : IShip, IHaveAntiNitrineEmitter, IHaveExponentialAcceleration
 {
     private readonly IImpulsiveEngine _impulsiveEngine;
     private readonly IDeflector _deflector;
@@ -15,26 +16,24 @@ public class Meredian : IShip, IHaveAntiNitrineEmitter
     public Meredian(bool hasPotonicDeflectors = false)
     {
         _impulsiveEngine = new ImpulsiveEngineE();
-        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(new DeflectorSecondRank())
-            : new DeflectorSecondRank();
+        IDeflector standardDeflector = new DeflectorSecondRank();
+        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(standardDeflector)
+            : standardDeflector;
         _corpus = new MediumCorpus();
     }
 
     public DamageShipResult TakePhysicalDamage(float damage)
     {
-        if (_deflector.IsWorks)
+        TakeDamageResult result = _deflector.TakeDamage(damage);
+        if (result is TakeDamageResult.Broke)
         {
-            TakeDamageResult result = _deflector.TakeDamage(damage);
-            if (result is TakeDamageResult.Broke)
+            if (result is TakeDamageResult.BrokeAndOverDamage brokeResult)
             {
-                if (result is TakeDamageResult.BrokeAndOverDamage brokeResult)
-                {
-                    damage = brokeResult.OverDamage;
-                }
-                else
-                {
-                    return new DamageShipResult.Survived();
-                }
+                damage = brokeResult.OverDamage;
+            }
+            else
+            {
+                return new DamageShipResult.Survived();
             }
         }
 
@@ -54,5 +53,10 @@ public class Meredian : IShip, IHaveAntiNitrineEmitter
             return new DamageShipResult.Survived();
 
         return new DamageShipResult.Destroyed();
+    }
+
+    public GravitonMatter CalculatingCostsForPath(int lenght)
+    {
+        return _impulsiveEngine.CalculatingCostsForPath(lenght);
     }
 }

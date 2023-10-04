@@ -4,6 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
@@ -11,6 +12,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
 public class ThirdTest
 {
+    private static FuelStorage voidFuel = new FuelStorage();
+
     public static IEnumerable<object[]> Vaclas =>
         new List<object[]>
         {
@@ -27,7 +30,7 @@ public class ThirdTest
             new object[]
             {
                 new Avgur(),
-                new PassingPathResult.Success(),
+                new PassingPathResult.Success(voidFuel),
             },
         };
 
@@ -37,7 +40,7 @@ public class ThirdTest
             new object[]
             {
                 new Meredian(),
-                new PassingPathResult.Success(),
+                new PassingPathResult.Success(voidFuel),
             },
         };
 
@@ -48,11 +51,13 @@ public class ThirdTest
     public void T3(IShip ship, PassingPathResult referenceResult)
     {
         // Arrange
-        var standardSpace = new NebulaeNitrineParticles(new[] { new CosmoWhale() });
+        var standardSpace = new NebulaeNitrineParticles(new[] { new CosmoWhale() }, 99);
         var path = new Path(new[] { standardSpace });
 
         // Act
         PassingPathResult result = path.LetShip(ship);
+        if (result is PassingPathResult.Success)
+            result = new PassingPathResult.Success(voidFuel);
 
         // Assert
         Assert.True(result == referenceResult);

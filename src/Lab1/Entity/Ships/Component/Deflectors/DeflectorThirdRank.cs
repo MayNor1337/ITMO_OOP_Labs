@@ -12,10 +12,13 @@ public class DeflectorThirdRank : IDeflector
         _strengthPoints = 20f;
     }
 
-    public bool IsWorks { get; set; } = true;
+    public bool IsWorks { get; private set; } = true;
 
     public TakeDamageResult TakeDamage(float damage)
     {
+        if (IsWorks == false)
+            return new TakeDamageResult.BrokeAndOverDamage(damage);
+
         _strengthPoints -= 0.5f * damage;
         if (_strengthPoints < 0)
         {

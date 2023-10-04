@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
@@ -16,12 +17,16 @@ public class Path
 
     public PassingPathResult LetShip(IShip ship)
     {
+        var fuelStorage = new FuelStorage();
         foreach (IEnviroment enviroment in _enviroments)
         {
             PassageResult result = enviroment.CalculationPassage(ship);
 
-            if (result is PassageResult.Success)
+            if (result is PassageResult.Success success)
+            {
+                fuelStorage.AddFuel(success.Fuel);
                 continue;
+            }
 
             if (result is PassageResult.ImpossibleOvercome)
                 return new PassingPathResult.Impossible();
@@ -33,6 +38,6 @@ public class Path
                 return new PassingPathResult.DestructionShip();
         }
 
-        return new PassingPathResult.Success();
+        return new PassingPathResult.Success(fuelStorage);
     }
 }

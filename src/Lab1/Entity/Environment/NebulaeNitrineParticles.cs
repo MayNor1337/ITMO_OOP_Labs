@@ -7,11 +7,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 
 public class NebulaeNitrineParticles : IEnviroment
 {
+    private readonly int _length;
     private IObstacle[] _obstacles;
 
-    public NebulaeNitrineParticles(IReadOnlyCollection<IObstacle> obstacles)
+    public NebulaeNitrineParticles(IEnumerable<ICanExistInNebulaeNitrineParticles> obstacles, int length)
     {
         _obstacles = obstacles.ToArray();
+        _length = length;
     }
 
     public PassageResult CalculationPassage(IShip ship)
@@ -47,6 +49,6 @@ public class NebulaeNitrineParticles : IEnviroment
             }
         }
 
-        return new PassageResult.Success();
+        return new PassageResult.Success(ship.CalculatingCostsForPath(_length));
     }
 }

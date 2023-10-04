@@ -4,13 +4,13 @@ public record PassingPathResult
 {
     private PassingPathResult() { }
 
-    public record Success : PassingPathResult;
+    public record Success(FuelStorage Fuel) : PassingPathResult;
 
-    public record ShipLoss : PassingPathResult;
+    public sealed record ShipLoss : PassingPathResult;
 
-    public record DestructionShip : PassingPathResult;
+    public sealed record DestructionShip : PassingPathResult;
 
-    public record CrewDeath : PassingPathResult;
+    public sealed record CrewDeath : PassingPathResult;
 
-    public record Impossible : PassingPathResult;
+    public sealed record Impossible : PassingPathResult;
 }

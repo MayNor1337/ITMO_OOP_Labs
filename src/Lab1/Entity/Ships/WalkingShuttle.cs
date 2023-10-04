@@ -1,5 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Corpuses;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
@@ -29,5 +30,10 @@ public class WalkingShuttle : IShip
     public DamageShipResult TakeRadiationDamage()
     {
         return new DamageShipResult.Destroyed();
+    }
+
+    public GravitonMatter CalculatingCostsForPath(int lenght)
+    {
+        return _impulsiveEngine.CalculatingCostsForPath(lenght);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Systems;
+using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
@@ -14,15 +14,16 @@ public class FifthTest
     public void T5()
     {
         // Arrange
-        Ship avgur = ShipCreator.CreateAvgur();
-        Ship stella = ShipCreator.CreateStella();
-        var sections = new Section[] { new Section(80, EnvironmentType.NebulaeHighDensity, Array.Empty<Obstacle>()) };
+        var avgur = new Avgur();
+        var stella = new Stella();
+        var standardSpace = new NebulaeHighDensity(Array.Empty<ICanExistInNebulaeHighDensity>(), 80);
+        var path = new Path(new[] { standardSpace });
 
         // Act
-        Results avgurResults = TrySystem.CheckPassage(avgur, sections, out _);
-        Results stellaResults = TrySystem.CheckPassage(avgur, sections, out _);
+        PassingPathResult avgurResults = path.LetShip(avgur);
+        PassingPathResult stellaResults = path.LetShip(stella);
 
         // Assert
-        Assert.True(avgurResults == Results.Success && stellaResults == Results.Success);
+        Assert.True(avgurResults is PassingPathResult.Success && stellaResults is PassingPathResult.Success);
     }
 }

@@ -16,6 +16,9 @@ public class DeflectorSecondRank : IDeflector
 
     public TakeDamageResult TakeDamage(float damage)
     {
+        if (IsWorks == false)
+            return new TakeDamageResult.BrokeAndOverDamage(damage);
+
         _strengthPoints -= 0.8f * damage;
         if (_strengthPoints < 0)
         {

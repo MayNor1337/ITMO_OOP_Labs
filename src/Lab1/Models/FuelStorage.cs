@@ -16,10 +16,16 @@ public class FuelStorage
             throw new ArgumentException("Value cannot be negative", nameof(fuel));
 
         if (fuel is ActivePlasma activePlasma)
+        {
             AmountActivePlasma += activePlasma.Amount;
+            return;
+        }
 
         if (fuel is GravitonMatter gravitonMatter)
+        {
             AmountGravitonMatter += gravitonMatter.Amount;
+            return;
+        }
 
         throw new ArgumentException("Fuel type is uncertain", nameof(fuel));
     }
