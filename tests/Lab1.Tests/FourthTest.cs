@@ -17,7 +17,7 @@ public class FourthTest
         // Arrange
         var walkingShuttle = new WalkingShuttle();
         var vaclas = new Vaclas();
-        var standardSpace = new StandardSpace(Array.Empty<ICanExistInStandardSpace>(), 99);
+        var standardSpace = new StandardSpace(Array.Empty<ICanExistInStandardSpace>(), 20);
         var path = new Path(new[] { standardSpace });
 
         // Act
