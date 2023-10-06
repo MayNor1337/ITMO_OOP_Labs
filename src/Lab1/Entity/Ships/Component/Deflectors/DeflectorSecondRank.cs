@@ -12,7 +12,7 @@ public class DeflectorSecondRank : IDeflector
         _strengthPoints = 16f;
     }
 
-    public bool IsWorks { get; set; } = true;
+    public bool IsWorks { get; private set; } = true;
 
     public TakeDamageResult TakeDamage(float damage)
     {

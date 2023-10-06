@@ -13,7 +13,7 @@ public class DeflectorFirstRank : IDeflector
         _strengthPoints = 2f;
     }
 
-    public bool IsWorks { get; set; }
+    public bool IsWorks { get; private set; } = true;
 
     public TakeDamageResult TakeDamage(float damage)
     {
