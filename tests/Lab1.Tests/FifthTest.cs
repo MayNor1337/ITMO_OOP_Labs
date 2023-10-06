@@ -11,7 +11,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class FifthTest
 {
     [Fact]
-    public void T5()
+    public void IShip_LetShip_WillTheShipsBeAbleToFlyInNebulaeHighDensity()
     {
         // Arrange
         var avgur = new Avgur();

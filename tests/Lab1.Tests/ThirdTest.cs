@@ -48,7 +48,7 @@ public class ThirdTest
     [MemberData(nameof(Vaclas))]
     [MemberData(nameof(Avgur))]
     [MemberData(nameof(Merediane))]
-    public void T3(IShip ship, PassingPathResult referenceResult)
+    public void IShip_LetShip_ShipsCollideWithCosmoWhales(IShip ship, PassingPathResult referenceResult)
     {
         // Arrange
         var standardSpace = new NebulaeNitrineParticles(new[] { new CosmoWhale() }, 99);

@@ -37,7 +37,7 @@ public class SecondTest
     [Theory]
     [MemberData(nameof(Vaclas))]
     [MemberData(nameof(VaclasWithPhotonDeflector))]
-    public void T2(IShip ship, PassingPathResult referenceResult)
+    public void IShip_LetShip_ShipsFlyInNebulaeHighDensityOneOfThemSurvives(IShip ship, PassingPathResult referenceResult)
     {
         // Arrange
         var nebulaeHighDensity = new NebulaeHighDensity(new[] { new AntimatterFlares() }, 99);

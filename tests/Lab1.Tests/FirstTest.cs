@@ -32,7 +32,7 @@ public class FirstTest
     [Theory]
     [MemberData(nameof(WalkingShuttle))]
     [MemberData(nameof(Avgur))]
-    public void IShip_LetShip_ImpossibleLet(IShip ship)
+    public void IShip_LetShip_ShipsWillNotBeAbleToFly(IShip ship)
     {
         // Arrange
         var nebulaeHighDensity = new NebulaeHighDensity(Array.Empty<ICanExistInNebulaeHighDensity>(), 120);

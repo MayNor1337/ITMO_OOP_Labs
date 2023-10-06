@@ -12,7 +12,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class FourthTest
 {
     [Fact]
-    public void T4()
+    public void IShip_LetShip_WhoIsCheaperInStandardSpace()
     {
         // Arrange
         var walkingShuttle = new WalkingShuttle();

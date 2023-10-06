@@ -11,7 +11,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class SixthTest
 {
     [Fact]
-    public void T6()
+    public void IShip_LetShip_WillTheShipsBeAbleToFlyInNebulaeNitrineParticles()
     {
         // Arrange
         var walkingShuttle = new WalkingShuttle();
