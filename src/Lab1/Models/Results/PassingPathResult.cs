@@ -6,7 +6,7 @@ public record PassingPathResult
 {
     private PassingPathResult() { }
 
-    public record Success(FuelStorage Fuel, float Time) : PassingPathResult;
+    public record Success(FuelStorage FuelStorage, float Time) : PassingPathResult;
 
     public sealed record ShipLoss : PassingPathResult;
 

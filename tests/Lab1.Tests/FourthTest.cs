@@ -20,6 +20,7 @@ public class FourthTest
         var vaclas = new Vaclas(new DeflectorFirstRank());
         var standardSpace = new StandardSpace(Array.Empty<IStandardSpaceObstacle>(), 20);
         var path = new Path(new[] { standardSpace });
+        var fuelStockMarket = new FuelStockMarket();
 
         // Act
         PassingPathResult walkingShuttleResult = path.LetShip(walkingShuttle);
@@ -37,8 +38,8 @@ public class FourthTest
             return;
         }
 
-        float walkingShuttlePrice = FuelsStockMarket.CostCalculation(walkingShuttleFuel.Fuel);
-        float vaclasPrice = FuelsStockMarket.CostCalculation(vaclasFuel.Fuel);
+        float walkingShuttlePrice = walkingShuttleFuel.FuelStorage.CalculateFuelPrice(fuelStockMarket);
+        float vaclasPrice = vaclasFuel.FuelStorage.CalculateFuelPrice(fuelStockMarket);
 
         // Assert
         Assert.True(walkingShuttlePrice < vaclasPrice);

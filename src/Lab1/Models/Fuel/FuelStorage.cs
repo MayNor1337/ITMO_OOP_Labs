@@ -1,31 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 
 public class FuelStorage
 {
+    private List<IFuel> fuels = new List<IFuel>();
     public FuelStorage() { }
-
-    public float AmountActivePlasma { get; private set; }
-    public float AmountGravitonMatter { get; private set; }
 
     public void AddFuel(IFuel fuel)
     {
         if (fuel.Amount < 0)
             throw new ArgumentException("Value cannot be negative", nameof(fuel));
 
-        if (fuel is ActivePlasma activePlasma)
+        fuels.Add(fuel);
+    }
+
+    public float CalculateFuelPrice(IFuelStockMarket fuelStockMarket)
+    {
+        float price = 0;
+        foreach (IFuel fuel in fuels)
         {
-            AmountActivePlasma += activePlasma.Amount;
-            return;
+            price += fuelStockMarket.CostCalculation(fuel);
         }
 
-        if (fuel is GravitonMatter gravitonMatter)
-        {
-            AmountGravitonMatter += gravitonMatter.Amount;
-            return;
-        }
-
-        throw new ArgumentException("Fuel type is uncertain", nameof(fuel));
+        return price;
     }
 }
