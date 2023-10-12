@@ -1,10 +1,12 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
+
+namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 public record PassingPathResult
 {
     private PassingPathResult() { }
 
-    public record Success(FuelStorage Fuel) : PassingPathResult;
+    public record Success(FuelStorage Fuel, float Time) : PassingPathResult;
 
     public sealed record ShipLoss : PassingPathResult;
 

@@ -1,19 +1,19 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 
-public class SmallAsteroid : ICanExistInStandardSpace
+public class SmallAsteroid : IStandardSpaceObstacle
 {
-    private float _damage;
+    private readonly float _damage;
 
     public SmallAsteroid()
     {
         _damage = 1;
     }
 
-    public CollisionResult CollisionHandling(IShip ship)
+    public DamageShipResult CollideTo(IShip ship)
     {
-        return new CollisionResult.MaterialCollisionOccurred(_damage);
+        return ship.TakeDamage(_damage);
     }
 }

@@ -1,7 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Corpuses;
-using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Corpuses;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
@@ -17,23 +16,17 @@ public class WalkingShuttle : IShip
         _corpus = new LightCorpus();
     }
 
-    public DamageShipResult TakePhysicalDamage(float damage)
+    public DamageShipResult TakeDamage(float damage)
     {
-        TakeDamageResult result = _corpus.TakeDamage(damage);
+        TakeDamageResult corpusResult = _corpus.TakeDamage(damage);
+        if (corpusResult is TakeDamageResult.Normal)
+            return new DamageShipResult.Survived();
 
-        if (result is TakeDamageResult.Broke)
-            return new DamageShipResult.Destroyed();
-
-        return new DamageShipResult.Survived();
-    }
-
-    public DamageShipResult TakeRadiationDamage()
-    {
         return new DamageShipResult.Destroyed();
     }
 
-    public GravitonMatter CalculatingCostsForPath(int lenght)
+    public IFuel CalculatingCostsForPath(int length, out float time)
     {
-        return _impulsiveEngine.CalculatingCostsForPath(lenght);
+        return _impulsiveEngine.CalculatingCostsForPath(length, out time);
     }
 }

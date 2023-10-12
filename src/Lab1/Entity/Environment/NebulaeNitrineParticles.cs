@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
@@ -8,47 +9,27 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 public class NebulaeNitrineParticles : IEnviroment
 {
     private readonly int _length;
-    private IObstacle[] _obstacles;
+    private readonly ObstacleStorage<INitrineParticlesObstacle> _obstacles;
 
-    public NebulaeNitrineParticles(IEnumerable<ICanExistInNebulaeNitrineParticles> obstacles, int length)
+    public NebulaeNitrineParticles(IEnumerable<INitrineParticlesObstacle> obstacles, int length)
     {
-        _obstacles = obstacles.ToArray();
+        _obstacles = new ObstacleStorage<INitrineParticlesObstacle>(obstacles);
         _length = length;
     }
 
     public PassageResult CalculationPassage(IShip ship)
     {
-        if (ship is IHaveExponentialAcceleration == false)
-            return new PassageResult.ImpossibleOvercome();
+        if (ship is not IHaveExponentialAcceleration)
+            return new PassageResult.Impossible();
 
-        foreach (IObstacle obstacle in _obstacles)
-        {
-            CollisionResult result = obstacle.CollisionHandling(ship);
+        DamageShipResult result = _obstacles.CheckingCollisionWithObstacles(ship);
 
-            if (result is CollisionResult.CollisionAverted)
-                continue;
+        if (result is DamageShipResult.Destroyed)
+            return new PassageResult.ShipDestroyed();
 
-            if (result is CollisionResult.MaterialCollisionOccurred physicalCollision)
-            {
-                if (ship.TakePhysicalDamage(physicalCollision.Damage) is DamageShipResult.Destroyed)
-                {
-                    return new PassageResult.ShipDestroyed();
-                }
+        if (result is DamageShipResult.CrewDied)
+            return new PassageResult.CrewDied();
 
-                continue;
-            }
-
-            if (result is CollisionResult.RadiationCollisionOccurred)
-            {
-                if (ship.TakeRadiationDamage() is DamageShipResult.Destroyed)
-                {
-                    return new PassageResult.CrewDied();
-                }
-
-                continue;
-            }
-        }
-
-        return new PassageResult.Success(ship.CalculatingCostsForPath(_length));
+        return new PassageResult.Success(ship.CalculatingCostsForPath(_length, out float time), time);
     }
 }

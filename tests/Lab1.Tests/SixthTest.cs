@@ -1,8 +1,9 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
@@ -15,9 +16,9 @@ public class SixthTest
     {
         // Arrange
         var walkingShuttle = new WalkingShuttle();
-        var vaclas = new Vaclas();
+        var vaclas = new Vaclas(new DeflectorFirstRank());
 
-        var nebulaeNitrine = new NebulaeNitrineParticles(Array.Empty<ICanExistInNebulaeNitrineParticles>(), 160);
+        var nebulaeNitrine = new NebulaeNitrineParticles(Array.Empty<INitrineParticlesObstacle>(), 160);
         var path = new Path(new[] { nebulaeNitrine });
 
         // Act

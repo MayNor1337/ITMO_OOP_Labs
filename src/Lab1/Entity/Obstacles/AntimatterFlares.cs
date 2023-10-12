@@ -1,16 +1,23 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 
-public class AntimatterFlares : ICanExistInNebulaeHighDensity
+public class AntimatterFlares : INebulaeHighDensityObstacle
 {
-    public AntimatterFlares()
-    {
-    }
+    public AntimatterFlares() { }
 
-    public CollisionResult CollisionHandling(IShip ship)
+    public DamageShipResult CollideTo(IShip ship)
     {
-        return new CollisionResult.RadiationCollisionOccurred();
+        if (ship is not IShipWithDeflector shipWithDeflector
+            || shipWithDeflector.Deflector is not DeflectorWithPhoton deflectorWithPhoton)
+            return new DamageShipResult.CrewDied();
+
+        TakeDamageResult result = deflectorWithPhoton.ReflectRadiation();
+        if (result is TakeDamageResult.Broken)
+            return new DamageShipResult.CrewDied();
+
+        return new DamageShipResult.Survived();
     }
 }

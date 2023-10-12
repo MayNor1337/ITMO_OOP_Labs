@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
@@ -7,11 +7,13 @@ public class GammaEngine : IJumpEngine
 {
     private readonly int _rangeOfTravel;
     private readonly float _fuelConsumption;
+    private readonly float _jumpTime;
 
     public GammaEngine()
     {
         _rangeOfTravel = 150;
         _fuelConsumption = 10f;
+        _jumpTime = 1.5f;
     }
 
     public bool TryPassTrack(int lengthPath)
@@ -19,10 +21,10 @@ public class GammaEngine : IJumpEngine
         return lengthPath <= _rangeOfTravel;
     }
 
-    public JumpResult CheckPossibilityJumping(int lenght)
+    public JumpResult Jumping(int length)
     {
-        if (lenght <= _rangeOfTravel)
-            return new JumpResult.Success(new GravitonMatter(_fuelConsumption));
+        if (length <= _rangeOfTravel)
+            return new JumpResult.Success(new GravitonMatter(_fuelConsumption), _jumpTime);
 
         return new JumpResult.Fail();
     }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
@@ -19,7 +19,7 @@ public class SecondTest
         {
             new object[]
             {
-                new Vaclas(),
+                new Vaclas(new DeflectorFirstRank()),
                 new PassingPathResult.CrewDeath(),
             },
         };
@@ -29,8 +29,8 @@ public class SecondTest
         {
             new object[]
             {
-                new Vaclas(true),
-                new PassingPathResult.Success(voidFuel),
+                new Vaclas(new DeflectorWithPhoton(new DeflectorFirstRank())),
+                new PassingPathResult.Success(voidFuel, 0),
             },
         };
 
@@ -47,7 +47,7 @@ public class SecondTest
         PassingPathResult result = path.LetShip(ship);
 
         if (result is PassingPathResult.Success)
-            result = new PassingPathResult.Success(voidFuel);
+            result = new PassingPathResult.Success(voidFuel, 0);
 
         // Assert
         Assert.True(result == referenceResult);

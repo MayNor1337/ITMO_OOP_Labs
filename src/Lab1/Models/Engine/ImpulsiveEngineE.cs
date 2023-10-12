@@ -1,5 +1,5 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
@@ -16,11 +16,11 @@ public class ImpulsiveEngineE : IImpulsiveEngine
         _fuelСonsumptionPerSecond = 100f;
     }
 
-    public GravitonMatter CalculatingCostsForPath(int lenght)
+    public IFuel CalculatingCostsForPath(int length, out float time)
     {
-        float time = (float)Math.Sqrt(_acceleration / (2 * lenght));
+        time = (float)Math.Sqrt(_acceleration / (2 * length));
         float fuelCount = _startFuelPrice + (time * _fuelСonsumptionPerSecond);
 
-        return new GravitonMatter(fuelCount);
+        return new ActivePlasma(fuelCount);
     }
 }

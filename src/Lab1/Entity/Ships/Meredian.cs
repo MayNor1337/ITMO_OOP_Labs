@@ -1,62 +1,42 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Corpuses;
-using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Deflectors;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Corpuses;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 
-public class Meredian : IShip, IHaveAntiNitrineEmitter, IHaveExponentialAcceleration
+public class Meredian : IShipWithDeflector, IHaveAntiNitrineEmitter, IHaveExponentialAcceleration
 {
     private readonly IImpulsiveEngine _impulsiveEngine;
-    private readonly IDeflector _deflector;
     private readonly ICorpus _corpus;
 
-    public Meredian(bool hasPotonicDeflectors = false)
+    public Meredian(IDeflector deflector)
     {
         _impulsiveEngine = new ImpulsiveEngineE();
-        IDeflector standardDeflector = new DeflectorSecondRank();
-        _deflector = hasPotonicDeflectors ? new DeflectorWithPhoton(standardDeflector)
-            : standardDeflector;
+        Deflector = deflector;
         _corpus = new MediumCorpus();
     }
 
-    public DamageShipResult TakePhysicalDamage(float damage)
-    {
-        TakeDamageResult result = _deflector.TakeDamage(damage);
-        if (result is TakeDamageResult.Broke)
-        {
-            if (result is TakeDamageResult.BrokeAndOverDamage brokeResult)
-            {
-                damage = brokeResult.OverDamage;
-            }
-            else
-            {
-                return new DamageShipResult.Survived();
-            }
-        }
+    public IDeflector Deflector { get; private set; }
 
-        TakeDamageResult corpusResult = _corpus.TakeDamage(damage);
+    public DamageShipResult TakeDamage(float damage)
+    {
+        TakeDamageResult result = Deflector.TakeDamage(damage);
+        if (result is not TakeDamageResult.Broken broken
+            || broken.OverDamage == 0)
+            return new DamageShipResult.Survived();
+
+        TakeDamageResult corpusResult = _corpus.TakeDamage(broken.OverDamage);
         if (corpusResult is TakeDamageResult.Normal)
             return new DamageShipResult.Survived();
 
         return new DamageShipResult.Destroyed();
     }
 
-    public DamageShipResult TakeRadiationDamage()
+    public IFuel CalculatingCostsForPath(int length, out float time)
     {
-        if (_deflector is not DeflectorWithPhoton photonDeflector) return new DamageShipResult.Destroyed();
-
-        TakeDamageResult result = photonDeflector.ReflectRadiation();
-        if (result is TakeDamageResult.Normal)
-            return new DamageShipResult.Survived();
-
-        return new DamageShipResult.Destroyed();
-    }
-
-    public GravitonMatter CalculatingCostsForPath(int lenght)
-    {
-        return _impulsiveEngine.CalculatingCostsForPath(lenght);
+        return _impulsiveEngine.CalculatingCostsForPath(length, out time);
     }
 }

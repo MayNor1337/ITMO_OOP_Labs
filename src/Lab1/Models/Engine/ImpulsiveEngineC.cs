@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
@@ -15,10 +15,10 @@ public class ImpulsiveEngineC : IImpulsiveEngine
         _fuelСonsumptionPerSecond = 10f;
     }
 
-    public GravitonMatter CalculatingCostsForPath(int lenght)
+    public IFuel CalculatingCostsForPath(int length, out float time)
     {
-        float time = lenght / _speed;
+        time = length / _speed;
         float fuel = _startFuelPrice + (time * _fuelСonsumptionPerSecond);
-        return new GravitonMatter(fuel);
+        return new ActivePlasma(fuel);
     }
 }

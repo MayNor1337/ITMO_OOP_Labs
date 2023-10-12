@@ -1,7 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Corpuses;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Corpuses;
 
 public class LightCorpus : ICorpus
 {
@@ -17,7 +16,7 @@ public class LightCorpus : ICorpus
         _strengthPoints -= damage;
 
         if (_strengthPoints < 0)
-            return new TakeDamageResult.Broke();
+            return new TakeDamageResult.Broken(0);
 
         return new TakeDamageResult.Normal();
     }

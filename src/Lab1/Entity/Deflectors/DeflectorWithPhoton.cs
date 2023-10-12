@@ -1,7 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships.Component.Deflectors;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 
 public class DeflectorWithPhoton : IDeflector
 {
@@ -13,14 +12,12 @@ public class DeflectorWithPhoton : IDeflector
         _deflector = deflector;
     }
 
-    public bool IsWorks => _deflector.IsWorks;
-
     public TakeDamageResult ReflectRadiation()
     {
-        --_amountWarhead;
-        if (_amountWarhead < 0)
-            return new TakeDamageResult.Broke();
+        if (_amountWarhead is 0)
+            return new TakeDamageResult.Broken(0);
 
+        --_amountWarhead;
         return new TakeDamageResult.Normal();
     }
 

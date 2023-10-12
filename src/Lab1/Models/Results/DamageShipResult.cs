@@ -7,4 +7,6 @@ public record DamageShipResult
     public sealed record Survived : DamageShipResult;
 
     public sealed record Destroyed : DamageShipResult;
+
+    public sealed record CrewDied : DamageShipResult;
 }

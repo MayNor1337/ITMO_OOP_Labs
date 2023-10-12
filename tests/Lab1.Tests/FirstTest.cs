@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
@@ -25,7 +26,7 @@ public class FirstTest
             {
                 new object[]
                 {
-                    new Avgur(),
+                    new Avgur(new DeflectorFirstRank()),
                 },
             };
 
@@ -35,7 +36,7 @@ public class FirstTest
     public void IShip_LetShip_ShipsWillNotBeAbleToFly(IShip ship)
     {
         // Arrange
-        var nebulaeHighDensity = new NebulaeHighDensity(Array.Empty<ICanExistInNebulaeHighDensity>(), 120);
+        var nebulaeHighDensity = new NebulaeHighDensity(Array.Empty<INebulaeHighDensityObstacle>(), 120);
         var path = new Path(new[] { nebulaeHighDensity });
 
         // Act

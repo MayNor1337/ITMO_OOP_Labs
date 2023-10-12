@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 
 public static class FuelsStockMarket
 {

@@ -1,9 +1,10 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
-using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 using Xunit;
 
@@ -16,21 +17,21 @@ public class FourthTest
     {
         // Arrange
         var walkingShuttle = new WalkingShuttle();
-        var vaclas = new Vaclas();
-        var standardSpace = new StandardSpace(Array.Empty<ICanExistInStandardSpace>(), 20);
+        var vaclas = new Vaclas(new DeflectorFirstRank());
+        var standardSpace = new StandardSpace(Array.Empty<IStandardSpaceObstacle>(), 20);
         var path = new Path(new[] { standardSpace });
 
         // Act
         PassingPathResult walkingShuttleResult = path.LetShip(walkingShuttle);
         PassingPathResult vaclasResults = path.LetShip(vaclas);
 
-        if (walkingShuttleResult is PassingPathResult.Success walkingShuttleFuel == false)
+        if (walkingShuttleResult is not PassingPathResult.Success walkingShuttleFuel)
         {
             Assert.True(false);
             return;
         }
 
-        if (vaclasResults is PassingPathResult.Success vaclasFuel == false)
+        if (vaclasResults is not PassingPathResult.Success vaclasFuel)
         {
             Assert.True(false);
             return;

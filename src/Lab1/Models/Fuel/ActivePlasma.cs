@@ -1,6 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
-
-namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 
 public class ActivePlasma : IFuel
 {
