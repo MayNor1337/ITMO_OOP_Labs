@@ -27,7 +27,7 @@ public class Vaclas : IShipWithDeflector, IHaveExponentialAcceleration, IHaveJum
     {
         TakeDamageResult result = Deflector.TakeDamage(damage);
         if (result is not TakeDamageResult.Broken broken
-            || broken.OverDamage == 0)
+            || broken.OverDamage is 0)
             return new DamageShipResult.Survived();
 
         TakeDamageResult corpusResult = _corpus.TakeDamage(broken.OverDamage);

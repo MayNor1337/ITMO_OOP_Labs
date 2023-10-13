@@ -17,7 +17,7 @@ public class DeflectorThirdRank : IDeflector
 
     public TakeDamageResult TakeDamage(float damage)
     {
-        if (_isWorks == false)
+        if (_isWorks is false)
             return new TakeDamageResult.Broken(damage);
 
         _strengthPoints -= damage < _damageThresholdForScattering
