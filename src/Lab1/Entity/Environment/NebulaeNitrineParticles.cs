@@ -2,6 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
@@ -30,6 +31,7 @@ public class NebulaeNitrineParticles : IEnviroment
         if (result is DamageShipResult.CrewDied)
             return new PassageResult.CrewDied();
 
-        return new PassageResult.Success(ship.CalculatingCostsForPath(_length, out float time), time);
+        EngineOperationData resultEngine = ship.CalculatingCostsForPath(_length);
+        return new PassageResult.Success(resultEngine.Fuel, resultEngine.Time);
     }
 }

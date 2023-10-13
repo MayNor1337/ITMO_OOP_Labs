@@ -2,7 +2,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine.JumpEngines;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
@@ -37,9 +36,9 @@ public class Stella : IShipWithDeflector, IHaveJumpEngine
         return new DamageShipResult.Destroyed();
     }
 
-    public IFuel CalculatingCostsForPath(int length, out float time)
+    public EngineOperationData CalculatingCostsForPath(int length)
     {
-        return _impulsiveEngine.CalculatingCostsForPath(length, out time);
+        return _impulsiveEngine.CalculatingCostsForPath(length);
     }
 
     public JumpResult CalculationSpentFuelPerJump(int length)

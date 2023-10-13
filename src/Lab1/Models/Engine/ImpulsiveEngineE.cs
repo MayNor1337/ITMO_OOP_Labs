@@ -16,11 +16,11 @@ public class ImpulsiveEngineE : IImpulsiveEngine
         _fuelСonsumptionPerSecond = 100f;
     }
 
-    public IFuel CalculatingCostsForPath(int length, out float time)
+    public EngineOperationData CalculatingCostsForPath(int length)
     {
-        time = (float)Math.Sqrt(_acceleration / (2 * length));
+        float time = (float)Math.Sqrt(_acceleration / (2 * length));
         float fuelCount = _startFuelPrice + (time * _fuelСonsumptionPerSecond);
 
-        return new ActivePlasma(fuelCount);
+        return new EngineOperationData(new ActivePlasma(fuelCount), time);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entity.Corpuses;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Fuel;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Ships;
@@ -25,8 +24,8 @@ public class WalkingShuttle : IShip
         return new DamageShipResult.Destroyed();
     }
 
-    public IFuel CalculatingCostsForPath(int length, out float time)
+    public EngineOperationData CalculatingCostsForPath(int length)
     {
-        return _impulsiveEngine.CalculatingCostsForPath(length, out time);
+        return _impulsiveEngine.CalculatingCostsForPath(length);
     }
 }
