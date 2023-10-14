@@ -15,12 +15,14 @@ public class LargeCorpus : ICorpus
 
     public TakeDamageResult TakeDamage(float damage)
     {
-        _strengthPoints -= damage < _damageThresholdForScattering
+        damage = damage < _damageThresholdForScattering
             ? _damageDissipationFactor * damage
             : damage;
 
-        if (_strengthPoints < 0)
-            return new TakeDamageResult.Broken(0);
+        if (_strengthPoints <= damage)
+            return new TakeDamageResult.Broken(damage - _strengthPoints);
+
+        _strengthPoints -= damage;
 
         return new TakeDamageResult.Normal();
     }

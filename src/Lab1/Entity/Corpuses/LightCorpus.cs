@@ -13,10 +13,10 @@ public class LightCorpus : ICorpus
 
     public TakeDamageResult TakeDamage(float damage)
     {
-        _strengthPoints -= damage;
+        if (_strengthPoints <= damage)
+            return new TakeDamageResult.Broken(damage - _strengthPoints);
 
-        if (_strengthPoints < 0)
-            return new TakeDamageResult.Broken(0);
+        _strengthPoints -= damage;
 
         return new TakeDamageResult.Normal();
     }

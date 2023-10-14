@@ -1,5 +1,4 @@
-﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Models.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Deflectors;
 
@@ -18,12 +17,13 @@ public class DeflectorFirstRank : IDeflector
         if (_isWorks is false)
             return new TakeDamageResult.Broken(damage);
 
-        _strengthPoints -= damage;
-        if (_strengthPoints < 0)
+        if (_strengthPoints <= damage)
         {
             _isWorks = false;
-            return new TakeDamageResult.Broken(Math.Abs(_strengthPoints));
+            return new TakeDamageResult.Broken(damage - _strengthPoints);
         }
+
+        _strengthPoints -= damage;
 
         return new TakeDamageResult.Normal();
     }
