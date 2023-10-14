@@ -10,7 +10,7 @@ public class CosmoWhale : INitrineParticlesObstacle
 
     public CosmoWhale()
     {
-        _damage = 40;
+        _damage = 20;
         _collisionsAmount = 1;
     }
 
