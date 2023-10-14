@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
-public class EngineOperationData
+public record EngineOperationData
 {
     public EngineOperationData(IFuel fuel, float time)
     {
