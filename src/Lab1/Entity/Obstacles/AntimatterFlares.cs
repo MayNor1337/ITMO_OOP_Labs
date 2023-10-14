@@ -10,8 +10,7 @@ public class AntimatterFlares : INebulaeHighDensityObstacle
 
     public DamageShipResult CollideTo(IShip ship)
     {
-        if (ship is not IShipWithDeflector shipWithDeflector
-            || shipWithDeflector.Deflector is not DeflectorWithPhoton deflectorWithPhoton)
+        if (ship is not IShipWithDeflector { Deflector: DeflectorWithPhoton deflectorWithPhoton })
             return new DamageShipResult.CrewDied();
 
         TakeDamageResult result = deflectorWithPhoton.ReflectRadiation();
