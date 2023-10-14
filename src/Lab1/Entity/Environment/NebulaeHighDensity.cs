@@ -8,11 +8,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 public class NebulaeHighDensity : IEnviroment
 {
     private readonly int _length;
-    private readonly ObstacleStorage<INebulaeHighDensityObstacle> _obstacles;
+    private readonly ObstacleStorage _obstacles;
 
     public NebulaeHighDensity(IEnumerable<INebulaeHighDensityObstacle> obstacles, int length)
     {
-        _obstacles = new ObstacleStorage<INebulaeHighDensityObstacle>(obstacles);
+        _obstacles = new ObstacleStorage(obstacles);
         _length = length;
     }
 

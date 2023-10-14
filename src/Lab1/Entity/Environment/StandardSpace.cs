@@ -9,11 +9,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 public class StandardSpace : IEnviroment
 {
     private readonly int _length;
-    private readonly ObstacleStorage<IStandardSpaceObstacle> _obstacles;
+    private readonly ObstacleStorage _obstacles;
 
     public StandardSpace(IEnumerable<IStandardSpaceObstacle> obstacles, int length)
     {
-        _obstacles = new ObstacleStorage<IStandardSpaceObstacle>(obstacles);
+        _obstacles = new ObstacleStorage(obstacles);
         _length = length;
     }
 

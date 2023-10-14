@@ -10,11 +10,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Environment;
 public class NebulaeNitrineParticles : IEnviroment
 {
     private readonly int _length;
-    private readonly ObstacleStorage<INitrineParticlesObstacle> _obstacles;
+    private readonly ObstacleStorage _obstacles;
 
     public NebulaeNitrineParticles(IEnumerable<INitrineParticlesObstacle> obstacles, int length)
     {
-        _obstacles = new ObstacleStorage<INitrineParticlesObstacle>(obstacles);
+        _obstacles = new ObstacleStorage(obstacles);
         _length = length;
     }
 
