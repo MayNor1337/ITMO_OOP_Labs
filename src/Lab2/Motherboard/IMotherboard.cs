@@ -11,6 +11,6 @@ public interface IMotherboard : IMotherboardDebuilder, IComponent
     Chipset Chipset { get; }
     IEnumerable<string> StandartsDDR { get; }
     int RamSlots { get; }
-    string FormFactor { get; }
+    MotherboardFormFactor FormFactor { get; }
     BIOS.BIOS Bios { get; }
 }

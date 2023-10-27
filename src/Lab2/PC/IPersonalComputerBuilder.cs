@@ -31,5 +31,5 @@ public interface IPersonalComputerBuilder
 
     IPersonalComputerBuilder SetWiFi(IWiFi wiFi);
 
-    PersonalComputer Build();
+    AssemblingPCResults Build();
 }

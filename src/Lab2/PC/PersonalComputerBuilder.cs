@@ -80,7 +80,7 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
         return this;
     }
 
-    public PersonalComputer Build()
+    public AssemblingPCResults Build()
     {
         var validator = new MainValidator();
         ValidationResult result = validator.Validate(
@@ -95,9 +95,9 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
             _wiFi);
 
         if (result is ValidationResult.NotSuitable)
-            throw new ArgumentException();
+            return new AssemblingPCResults.UnableToAssemble();
 
-        return new PersonalComputer(
+        var pc = new PersonalComputer(
             _motherboard,
             _cpu,
             _cooler,
@@ -107,5 +107,10 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
             _corpus,
             _powerSupply,
             _wiFi);
+
+        if (result is ValidationResult.Warning)
+            return new AssemblingPCResults.Warning(pc);
+
+        return new AssemblingPCResults.Great(pc);
     }
 }

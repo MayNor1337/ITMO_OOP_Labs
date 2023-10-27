@@ -11,7 +11,7 @@ public class MotherboardBuilder : IMotherboardBuilder
     private Chipset? _chipset;
     private IEnumerable<string>? _standartsDDR;
     private int? _ramSlots;
-    private string? _formFactor;
+    private MotherboardFormFactor? _formFactor;
     private BIOS.BIOS? _bios;
 
     public IMotherboardBuilder SetSoket(string soket)
@@ -50,7 +50,7 @@ public class MotherboardBuilder : IMotherboardBuilder
         return this;
     }
 
-    public IMotherboardBuilder SetFormFactor(string formFactor)
+    public IMotherboardBuilder SetFormFactor(MotherboardFormFactor formFactor)
     {
         _formFactor = formFactor;
         return this;

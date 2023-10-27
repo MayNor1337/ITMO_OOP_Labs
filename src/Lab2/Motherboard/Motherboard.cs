@@ -11,7 +11,7 @@ public class Motherboard : IMotherboard
         Chipset chipset,
         IEnumerable<string> standartsDdr,
         int ramSlots,
-        string formFactor,
+        MotherboardFormFactor formFactor,
         BIOS.BIOS bios)
     {
         Soket = soket;
@@ -30,7 +30,7 @@ public class Motherboard : IMotherboard
     public Chipset Chipset { get; }
     public IEnumerable<string> StandartsDDR { get; }
     public int RamSlots { get; }
-    public string FormFactor { get; }
+    public MotherboardFormFactor FormFactor { get; }
     public BIOS.BIOS Bios { get; }
 
     public IMotherboardBuilder Debuild()

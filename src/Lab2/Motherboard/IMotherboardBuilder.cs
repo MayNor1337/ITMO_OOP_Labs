@@ -16,7 +16,7 @@ public interface IMotherboardBuilder
 
     IMotherboardBuilder SetRamSlots(int ramSlots);
 
-    IMotherboardBuilder SetFormFactor(string formFactor);
+    IMotherboardBuilder SetFormFactor(MotherboardFormFactor formFactor);
 
     IMotherboardBuilder SetBIOS(BIOS.BIOS bios);
 

@@ -64,7 +64,7 @@ public class MainValidator
              _amountOfWarning += warning4.Amount;
 
          // Power Supply valid
-         PowerSupplyValidator.Validate(powerSupply, new IConsumeEnergy?[] { cpu, ram, gpu, wiFi }.Concat(drives));
+         result = PowerSupplyValidator.Validate(powerSupply, new IConsumeEnergy?[] { cpu, ram, gpu, wiFi }.Concat(drives));
 
          if (result is ValidationResult.NotSuitable)
              return result;
