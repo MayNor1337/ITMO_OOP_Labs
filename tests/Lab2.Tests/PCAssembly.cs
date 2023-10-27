@@ -1,11 +1,11 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Cooler;
 using Itmo.ObjectOrientedProgramming.Lab2.Corpus;
 using Itmo.ObjectOrientedProgramming.Lab2.CPU;
-using Itmo.ObjectOrientedProgramming.Lab2.CPU.Builders;
 using Itmo.ObjectOrientedProgramming.Lab2.Drives.HDD;
 using Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
 using Itmo.ObjectOrientedProgramming.Lab2.Motherboard.BIOS;
 using Itmo.ObjectOrientedProgramming.Lab2.PC;
+using Itmo.ObjectOrientedProgramming.Lab2.PC.Validators;
 using Itmo.ObjectOrientedProgramming.Lab2.PowerSupply;
 using Itmo.ObjectOrientedProgramming.Lab2.RAM;
 using Itmo.ObjectOrientedProgramming.Lab2.RAM.XMP;
@@ -37,7 +37,7 @@ public class PCAssembly
         .SetSupportedFormFactor(new[] { MotherboardFormFactor.MicroATX, MotherboardFormFactor.StandartATX })
         .Build();
 
-    private static ICPU _cpu = new CPUBuilder().SetName(_cpuName)
+    private static ICpu _cpu = new CpuBuilder().SetName(_cpuName)
         .SetSocket(_soket)
         .SetClockFrequency(100)
         .SetPowerConsumption(5)
@@ -47,7 +47,7 @@ public class PCAssembly
         .AddGraphCore()
         .Build();
 
-    private static ICPU _cpuWithOtherSoket = new CPUBuilder().SetName(_cpuName)
+    private static ICpu _cpuWithOtherSoket = new CpuBuilder().SetName(_cpuName)
         .SetSocket("M3200")
         .SetClockFrequency(100)
         .SetPowerConsumption(5)
@@ -57,14 +57,14 @@ public class PCAssembly
         .AddGraphCore()
         .Build();
 
-    private static IHDD _hdd = new HDDBuilder().SetSizeOfMemory(10)
+    private static IHdd _hdd = new HddBuilder().SetSizeOfMemory(10)
         .SetPowerConsumption(1)
         .SetSpindleRotationSpeed(1)
         .Build();
 
     private static IMotherboard _motherboard = new MotherboardBuilder().SetChipset(new Chipset(new[] { 1 }, true))
         .SetSoket(_soket)
-        .SetBIOS(new BIOS("xy", "15.04.03", new[] { _cpuName }))
+        .SetBIOS(new Bios("xy", "15.04.03", new[] { _cpuName }))
         .SetFormFactor(MotherboardFormFactor.StandartATX)
         .SetRamSlots(2)
         .SetStandartsDDR(new[] { "DDDR5" })
@@ -80,19 +80,27 @@ public class PCAssembly
         .SetMaximumRcommendedLoad(0)
         .Build();
 
-    private static IRAM _ram = new RAMBuilder().SetFormFactor("hz")
+    private static IRam _ram = new RamBuilder().SetFormFactor("hz")
         .SetAmountMemory(1000)
         .SetPoweConsumptionr(3)
         .SetDDRVersion("DDDR5")
-        .SetXMP(new XMP(16, 16, 18, 18, 5, 16666))
+        .SetXMP(new Xmp(16, 16, 18, 18, 5, 16666))
         .SetFrequenciesJEDEC(new[] { 1666 })
         .Build();
+
+    private static MainValidator validator = new MainValidator(new IValidator[]
+    {
+        new CpuValidator(),
+        new CoolerValidator(),
+        new RamValidator(),
+        new PowerSupplyValidator(),
+    });
 
     [Fact]
     public void PersonalComputerBuilderWeAssembleTheComputerFromSuitableParts()
     {
         // Arrange
-        AssemblingPCResults result = new PersonalComputerBuilder().SetCooler(_cooler)
+        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_cooler)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
@@ -108,7 +116,7 @@ public class PCAssembly
     public void PersonalComputerBuilderWithAnWarning()
     {
         // Arrange
-        AssemblingPCResults result = new PersonalComputerBuilder().SetCooler(_cooler)
+        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_cooler)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
@@ -123,7 +131,7 @@ public class PCAssembly
     [Fact]
     public void PersonalComputerBuilderBadCooler()
     {
-        AssemblingPCResults result = new PersonalComputerBuilder().SetCooler(_coolerBad)
+        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_coolerBad)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
@@ -138,7 +146,7 @@ public class PCAssembly
     [Fact]
     public void PersonalComputerBuilderWithUnsuitableComponents()
     {
-        AssemblingPCResults result = new PersonalComputerBuilder().SetCooler(_coolerBad)
+        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_coolerBad)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })

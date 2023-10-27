@@ -15,13 +15,13 @@ public interface IPersonalComputerBuilder
 {
     IPersonalComputerBuilder SetMotherboadr(IMotherboard motherboard);
 
-    IPersonalComputerBuilder SetCPU(ICPU cpu);
+    IPersonalComputerBuilder SetCPU(ICpu cpu);
 
     IPersonalComputerBuilder SetCooler(ICooler cooler);
 
-    IPersonalComputerBuilder SetRam(IRAM ram);
+    IPersonalComputerBuilder SetRam(IRam ram);
 
-    IPersonalComputerBuilder SetGPU(IGPU gpu);
+    IPersonalComputerBuilder SetGPU(IGpu gpu);
 
     IPersonalComputerBuilder SetDrives(IEnumerable<IDrive> drives);
 
@@ -31,5 +31,5 @@ public interface IPersonalComputerBuilder
 
     IPersonalComputerBuilder SetWiFi(IWiFi wiFi);
 
-    AssemblingPCResults Build();
+    public AssemblingPCResults Build();
 }

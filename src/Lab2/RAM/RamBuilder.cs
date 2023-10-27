@@ -5,54 +5,54 @@ using Itmo.ObjectOrientedProgramming.Lab2.RAM.XMP;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.RAM;
 
-public class RAMBuilder : IRAMBuilder
+public class RamBuilder : IRamBuilder
 {
     private int? _amountMemory;
     private int[]? _frequenciesJEDEC;
-    private IXMP? _xmp;
+    private IXmp? _xmp;
     private string? _formFactor;
     private string? _ddrVersion;
     private int? _powerConsumption;
 
-    public IRAMBuilder SetAmountMemory(int amountMemory)
+    public IRamBuilder SetAmountMemory(int amountMemory)
     {
         _amountMemory = amountMemory;
         return this;
     }
 
-    public IRAMBuilder SetFrequenciesJEDEC(IEnumerable<int> frequenciesJEDEC)
+    public IRamBuilder SetFrequenciesJEDEC(IEnumerable<int> frequenciesJEDEC)
     {
         _frequenciesJEDEC = frequenciesJEDEC.ToArray();
         return this;
     }
 
-    public IRAMBuilder SetXMP(IXMP xmp)
+    public IRamBuilder SetXMP(IXmp xmp)
     {
         _xmp = xmp;
         return this;
     }
 
-    public IRAMBuilder SetFormFactor(string formFactor)
+    public IRamBuilder SetFormFactor(string formFactor)
     {
         _formFactor = formFactor;
         return this;
     }
 
-    public IRAMBuilder SetDDRVersion(string ddrVersion)
+    public IRamBuilder SetDDRVersion(string ddrVersion)
     {
         _ddrVersion = ddrVersion;
         return this;
     }
 
-    public IRAMBuilder SetPoweConsumptionr(int powerConsumption)
+    public IRamBuilder SetPoweConsumptionr(int powerConsumption)
     {
         _powerConsumption = powerConsumption;
         return this;
     }
 
-    public IRAM Build()
+    public IRam Build()
     {
-        return new RAM(
+        return new Ram(
             _amountMemory ?? throw new ArgumentNullException(nameof(_amountMemory)),
             _frequenciesJEDEC ?? throw new ArgumentNullException(nameof(_frequenciesJEDEC)),
             _xmp ?? throw new ArgumentNullException(nameof(_xmp)),

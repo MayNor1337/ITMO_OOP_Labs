@@ -2,5 +2,5 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.GPU;
 
-public interface ICPUWithGC : ICPU
+public interface ICpuWithGraphicCore : ICpu
 { }

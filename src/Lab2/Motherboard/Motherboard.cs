@@ -12,7 +12,7 @@ public class Motherboard : IMotherboard
         IEnumerable<string> standartsDdr,
         int ramSlots,
         MotherboardFormFactor formFactor,
-        BIOS.BIOS bios)
+        BIOS.Bios bios)
     {
         Soket = soket;
         NumberPCIELine = numberPcieLine;
@@ -31,7 +31,7 @@ public class Motherboard : IMotherboard
     public IEnumerable<string> StandartsDDR { get; }
     public int RamSlots { get; }
     public MotherboardFormFactor FormFactor { get; }
-    public BIOS.BIOS Bios { get; }
+    public BIOS.Bios Bios { get; }
 
     public IMotherboardBuilder Debuild()
     {

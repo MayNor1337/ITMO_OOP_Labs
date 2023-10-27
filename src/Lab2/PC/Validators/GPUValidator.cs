@@ -5,14 +5,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PC.Validators;
 
 public static class GPUValidator
 {
-    public static ValidationResult AddGpu(IGPU? gpu, ICPU cpu)
+    public static ValidationResult AddGpu(IGpu? gpu, ICpu cpu)
     {
         return GraphicValidation(gpu, cpu);
     }
 
-    private static ValidationResult GraphicValidation(IGPU? gpu, ICPU cpu)
+    private static ValidationResult GraphicValidation(IGpu? gpu, ICpu cpu)
     {
-        if (cpu is ICPUWithGC || gpu is not null)
+        if (cpu is ICpuWithGraphicCore || gpu is not null)
             return new ValidationResult.Approach();
 
         return new ValidationResult.NotSuitable();

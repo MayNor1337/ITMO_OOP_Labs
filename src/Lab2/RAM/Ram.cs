@@ -4,12 +4,12 @@ using Itmo.ObjectOrientedProgramming.Lab2.RAM.XMP;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.RAM;
 
-public class RAM : IRAM
+public class Ram : IRam
 {
-    internal RAM(
+    internal Ram(
         int amountMemory,
         IEnumerable<int> frequenciesJedec,
-        IXMP xmp,
+        IXmp xmp,
         string formFactor,
         string ddrVersion,
         int powerConsumption)
@@ -24,14 +24,14 @@ public class RAM : IRAM
 
     public int AmountMemory { get; }
     public IEnumerable<int> FrequenciesJEDEC { get; }
-    public IXMP Xmp { get; }
+    public IXmp Xmp { get; }
     public string FormFactor { get; }
     public string DdrVersion { get; }
     public int PowerConsumption { get; }
 
-    public IRAMBuilder Debuild()
+    public IRamBuilder Debuild()
     {
-        return new RAMBuilder().SetAmountMemory(AmountMemory)
+        return new RamBuilder().SetAmountMemory(AmountMemory)
             .SetFrequenciesJEDEC(FrequenciesJEDEC)
             .SetXMP(Xmp)
             .SetFormFactor(FormFactor)

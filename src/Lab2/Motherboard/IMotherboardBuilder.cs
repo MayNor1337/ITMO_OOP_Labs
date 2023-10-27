@@ -18,7 +18,7 @@ public interface IMotherboardBuilder
 
     IMotherboardBuilder SetFormFactor(MotherboardFormFactor formFactor);
 
-    IMotherboardBuilder SetBIOS(BIOS.BIOS bios);
+    IMotherboardBuilder SetBIOS(BIOS.Bios bios);
 
     IMotherboard Build();
 }

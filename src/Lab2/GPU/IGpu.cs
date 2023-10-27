@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Repository;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.GPU;
 
-public interface IGPU : IConsumeEnergy, IGPUDebulder, IComponent
+public interface IGpu : IConsumeEnergy, IGpuDebulder, IComponent
 {
     public double Height { get; }
     public double Width { get; }

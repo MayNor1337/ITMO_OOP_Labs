@@ -5,11 +5,11 @@ using Itmo.ObjectOrientedProgramming.Lab2.Repository;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.RAM;
 
-public interface IRAM : IConsumeEnergy, IRAMDebuilder, IComponent
+public interface IRam : IConsumeEnergy, IRamDebuilder, IComponent
 {
     int AmountMemory { get; }
     IEnumerable<int> FrequenciesJEDEC { get; }
-    IXMP Xmp { get; }
+    IXmp Xmp { get; }
     string FormFactor { get; }
     string DdrVersion { get; }
 }

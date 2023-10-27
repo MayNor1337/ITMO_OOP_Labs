@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Motherboard.BIOS;
 
-public class BIOS
+public class Bios
 {
-    public BIOS(string type, string version, IEnumerable<string> supportedCpu)
+    public Bios(string type, string version, IEnumerable<string> supportedCpu)
     {
         Type = type;
         Version = version;

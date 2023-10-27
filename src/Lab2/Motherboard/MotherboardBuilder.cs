@@ -12,7 +12,7 @@ public class MotherboardBuilder : IMotherboardBuilder
     private IEnumerable<string>? _standartsDDR;
     private int? _ramSlots;
     private MotherboardFormFactor? _formFactor;
-    private BIOS.BIOS? _bios;
+    private BIOS.Bios? _bios;
 
     public IMotherboardBuilder SetSoket(string soket)
     {
@@ -56,7 +56,7 @@ public class MotherboardBuilder : IMotherboardBuilder
         return this;
     }
 
-    public IMotherboardBuilder SetBIOS(BIOS.BIOS bios)
+    public IMotherboardBuilder SetBIOS(BIOS.Bios bios)
     {
         _bios = bios;
         return this;

@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.PowerSupply;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PC.Validators;
 
-public static class PowerSupplyValidator
+public class PowerSupplyValidator : IValidator
 {
-    public static ValidationResult Validate(IPowerSupply powerSupply, IEnumerable<IConsumeEnergy?> consumeEnergies)
+    public ValidationResult Validate(PersonalComputer personalComputer) =>
+        ConsumptionCalculationAndVerification(
+            personalComputer.PowerSupply,
+            new IConsumeEnergy?[]
+            {
+                personalComputer.Cpu, personalComputer.Ram, personalComputer.Gpu, personalComputer.WiFi,
+            }.Concat(personalComputer.Drives));
+
+    private static ValidationResult ConsumptionCalculationAndVerification(IPowerSupply powerSupply, IEnumerable<IConsumeEnergy?> consumeEnergies)
     {
         int generalConsume = 0;
 

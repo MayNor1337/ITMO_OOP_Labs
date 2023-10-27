@@ -14,35 +14,35 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PC;
 
 public class PersonalComputer
 {
-    private IMotherboard _motherboard;
-    private ICPU _cpu;
-    private ICooler _cooler;
-    private IRAM _ram;
-    private IGPU? _gpu;
-    private List<IDrive> _drives;
-    private ICorpus _corpus;
-    private IPowerSupply _powerSupply;
-    private IWiFi? _wiFi;
-
     internal PersonalComputer(
         IMotherboard motherboard,
-        ICPU cpu,
+        ICpu cpu,
         ICooler cooler,
-        IRAM ram,
-        IGPU? gpu,
+        IRam ram,
+        IGpu? gpu,
         IEnumerable<IDrive> drives,
         ICorpus corpus,
         IPowerSupply powerSupply,
         IWiFi? wiFi)
     {
-        _motherboard = motherboard;
-        _cpu = cpu;
-        _cooler = cooler;
-        _ram = ram;
-        _gpu = gpu;
-        _drives = drives.ToList();
-        _corpus = corpus;
-        _powerSupply = powerSupply;
-        _wiFi = wiFi;
+        Motherboard = motherboard;
+        this.Cpu = cpu;
+        Cooler = cooler;
+        Ram = ram;
+        Gpu = gpu;
+        Drives = drives.ToList();
+        Corpus = corpus;
+        PowerSupply = powerSupply;
+        WiFi = wiFi;
     }
+
+    public IMotherboard Motherboard { get; }
+    public ICpu Cpu { get; }
+    public ICooler Cooler { get; }
+    public IRam Ram { get; }
+    public IGpu? Gpu { get; }
+    public IEnumerable<IDrive> Drives { get; }
+    public ICorpus Corpus { get; }
+    public IPowerSupply PowerSupply { get; }
+    public IWiFi? WiFi { get; }
 }

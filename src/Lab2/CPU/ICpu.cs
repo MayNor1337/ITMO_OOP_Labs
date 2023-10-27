@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Repository;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.CPU;
 
-public interface ICPU : IConsumeEnergy, ICPUDebuilder, IComponent
+public interface ICpu : IConsumeEnergy, ICPUDebuilder, IComponent
 {
     public string Name { get; }
     double ClockFrequency { get; }

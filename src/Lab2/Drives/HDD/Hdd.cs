@@ -1,8 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Drives.HDD;
 
-public class HDD : IHDD
+public class Hdd : IHdd
 {
-    internal HDD(int sizeOfMemory, int spindleRotationSpeed, int powerConsumption)
+    internal Hdd(int sizeOfMemory, int spindleRotationSpeed, int powerConsumption)
     {
         SizeOfMemory = sizeOfMemory;
         SpindleRotationSpeed = spindleRotationSpeed;
@@ -13,9 +13,9 @@ public class HDD : IHDD
     public int SpindleRotationSpeed { get; }
     public int PowerConsumption { get; }
 
-    public IHDDBuilder Debuild()
+    public IHddBuilder Debuild()
     {
-        return new HDDBuilder().SetSizeOfMemory(SizeOfMemory)
+        return new HddBuilder().SetSizeOfMemory(SizeOfMemory)
             .SetSpindleRotationSpeed(SpindleRotationSpeed)
             .SetPowerConsumption(PowerConsumption);
     }

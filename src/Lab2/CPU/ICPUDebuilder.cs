@@ -2,5 +2,5 @@
 
 public interface ICPUDebuilder
 {
-    public ICPUBuilder Debuild();
+    public ICpuBuilder Debuild();
 }

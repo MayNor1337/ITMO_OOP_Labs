@@ -6,9 +6,18 @@ using Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PC.Validators;
 
-public static class CoolerValidator
+public class CoolerValidator : IValidator
 {
-    public static ValidationResult AddCoolerToPC(ICooler cooler, ICorpus corpus, ICPU cpu, IMotherboard motherboard)
+    public ValidationResult Validate(PersonalComputer personalComputer)
+    {
+        return AddCoolerToPC(
+            personalComputer.Cooler,
+            personalComputer.Corpus,
+            personalComputer.Cpu,
+            personalComputer.Motherboard);
+    }
+
+    private static ValidationResult AddCoolerToPC(ICooler cooler, ICorpus corpus, ICpu cpu, IMotherboard motherboard)
     {
         int countOfWarning = 0;
 
@@ -47,7 +56,7 @@ public static class CoolerValidator
         return new ValidationResult.NotSuitable();
     }
 
-    private static ValidationResult AddCoolerToCpu(ICooler cooler, ICPU cpu)
+    private static ValidationResult AddCoolerToCpu(ICooler cooler, ICpu cpu)
     {
         if (cooler.MaxTDP >= cpu.Tdp)
             return new ValidationResult.Approach();

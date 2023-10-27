@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.RAM;
 
-public interface IRAMDebuilder
+public interface IRamDebuilder
 {
-    IRAMBuilder Debuild();
+    IRamBuilder Debuild();
 }

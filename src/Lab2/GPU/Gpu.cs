@@ -1,8 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.GPU;
 
-public class GPU : IGPU
+public class Gpu : IGpu
 {
-    internal GPU(
+    internal Gpu(
         double height,
         double width,
         int videoMemory,
@@ -25,9 +25,9 @@ public class GPU : IGPU
     public int ChipFrequency { get; }
     public int PowerConsumption { get; }
 
-    public IGPUBuilder Debuild()
+    public IGpuBuilder Debuild()
     {
-        return new GPUBuilder().SetHeight(Height)
+        return new GpuBuilder().SetHeight(Height)
             .SetWidth(Width)
             .SetVideoMemory(VideoMemory)
             .SetVersionPCIE(VersionPCIE)

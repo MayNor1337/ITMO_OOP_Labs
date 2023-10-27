@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.RAM.XMP;
 
-public interface IXMP
+public interface IXmp
 {
     public int CAS { get; }
     public int Precharge { get; }

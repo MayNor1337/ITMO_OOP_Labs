@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Drives.HDD;
 
-public interface IHDDDebuilder
+public interface IHddDebuilder
 {
-    IHDDBuilder Debuild();
+    IHddBuilder Debuild();
 }

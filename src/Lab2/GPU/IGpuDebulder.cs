@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.GPU;
 
-public interface IGPUDebulder
+public interface IGpuDebulder
 {
-    IGPUBuilder Debuild();
+    IGpuBuilder Debuild();
 }

@@ -1,27 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Itmo.ObjectOrientedProgramming.Lab2.CPU.Builders;
+using Itmo.ObjectOrientedProgramming.Lab2.GPU;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.CPU;
 
-public class CPU : ICPU
+public class CPUWithGraphicCore : ICpu, ICpuWithGraphicCore
 {
-    internal CPU(
-        string name,
-        double clockFrequency,
-        int numberCores,
-        string socket,
-        IEnumerable<int> supportedMemory,
-        int tdp,
-        int powerConsumption)
+    public CPUWithGraphicCore(string name, double clockFrequency, int numberCores, string socket, IEnumerable<int> supportedMemoryFrequencies, int tdp, int powerConsumption)
     {
+        PowerConsumption = powerConsumption;
         Name = name;
         ClockFrequency = clockFrequency;
         NumberCores = numberCores;
         Socket = socket;
-        SupportedMemoryFrequencies = supportedMemory.ToArray();
+        SupportedMemoryFrequencies = supportedMemoryFrequencies;
         Tdp = tdp;
-        PowerConsumption = powerConsumption;
     }
 
     public string Name { get; }
@@ -32,14 +24,15 @@ public class CPU : ICPU
     public int Tdp { get; }
     public int PowerConsumption { get; }
 
-    public ICPUBuilder Debuild()
+    public ICpuBuilder Debuild()
     {
-        return new CPUBuilder().SetName(Name)
+        return new CpuBuilder().SetName(Name)
             .SetClockFrequency(ClockFrequency)
             .SetNumberCores(NumberCores)
             .SetSocket(Socket)
             .AddSupportedMemoryFrequencies(SupportedMemoryFrequencies)
             .SetTDP(Tdp)
-            .SetPowerConsumption(PowerConsumption);
+            .SetPowerConsumption(PowerConsumption)
+            .AddGraphCore();
     }
 }

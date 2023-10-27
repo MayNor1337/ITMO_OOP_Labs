@@ -1,8 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.RAM.XMP;
 
-public class XMP : IXMP
+public class Xmp : IXmp
 {
-    public XMP(int cas, int precharge, int tras, int rc, int voltage, int frequency)
+    public Xmp(int cas, int precharge, int tras, int rc, int voltage, int frequency)
     {
         CAS = cas;
         Precharge = precharge;

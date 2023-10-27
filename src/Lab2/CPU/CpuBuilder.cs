@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.CPU.Builders;
+namespace Itmo.ObjectOrientedProgramming.Lab2.CPU;
 
-public abstract class CPUBuilderBase : ICPUBuilder
+public class CpuBuilder : ICpuBuilder
 {
     private string? _name;
     private double? _clockFrequency;
@@ -15,74 +15,75 @@ public abstract class CPUBuilderBase : ICPUBuilder
     private int? _tdp;
     private int? _powerConsumption;
 
-    public ICPUBuilder SetName(string name)
+    public ICpuBuilder SetName(string name)
     {
         _name = name;
         return this;
     }
 
-    public ICPUBuilder SetClockFrequency(double clockFrequency)
+    public ICpuBuilder SetClockFrequency(double clockFrequency)
     {
         _clockFrequency = clockFrequency;
         return this;
     }
 
-    public ICPUBuilder SetNumberCores(int numberCores)
+    public ICpuBuilder SetNumberCores(int numberCores)
     {
         _numberCores = numberCores;
         return this;
     }
 
-    public ICPUBuilder AddGraphCore()
+    public ICpuBuilder AddGraphCore()
     {
         _graphCore = true;
         return this;
     }
 
-    public ICPUBuilder SetSocket(string socket)
+    public ICpuBuilder SetSocket(string socket)
     {
         _socket = socket;
         return this;
     }
 
-    public ICPUBuilder AddSupportedMemoryFrequencies(IEnumerable<int> supportedMemoryFrequencies)
+    public ICpuBuilder AddSupportedMemoryFrequencies(IEnumerable<int> supportedMemoryFrequencies)
     {
         _supportedMemoryFrequencies = supportedMemoryFrequencies.ToArray();
         return this;
     }
 
-    public ICPUBuilder SetTDP(int tdp)
+    public ICpuBuilder SetTDP(int tdp)
     {
         _tdp = tdp;
         return this;
     }
 
-    public ICPUBuilder SetPowerConsumption(int powerConsumption)
+    public ICpuBuilder SetPowerConsumption(int powerConsumption)
     {
         _powerConsumption = powerConsumption;
         return this;
     }
 
-    public ICPU Build()
+    public ICpu Build()
     {
-        return Create(
+        if (_graphCore)
+        {
+            return new CPUWithGraphicCore(
+                _name ?? throw new ArgumentNullException(nameof(_name)),
+                _clockFrequency ?? throw new ArgumentNullException(nameof(_clockFrequency)),
+                _numberCores ?? throw new ArgumentNullException(nameof(_numberCores)),
+                _socket ?? throw new ArgumentNullException(nameof(_numberCores)),
+                _supportedMemoryFrequencies ?? throw new ArgumentNullException(nameof(_numberCores)),
+                _tdp ?? throw new ArgumentNullException(nameof(_numberCores)),
+                _powerConsumption ?? throw new ArgumentNullException(nameof(_numberCores)));
+        }
+
+        return new Cpu(
             _name ?? throw new ArgumentNullException(nameof(_name)),
             _clockFrequency ?? throw new ArgumentNullException(nameof(_clockFrequency)),
             _numberCores ?? throw new ArgumentNullException(nameof(_numberCores)),
-            _graphCore,
             _socket ?? throw new ArgumentNullException(nameof(_numberCores)),
             _supportedMemoryFrequencies ?? throw new ArgumentNullException(nameof(_numberCores)),
             _tdp ?? throw new ArgumentNullException(nameof(_numberCores)),
             _powerConsumption ?? throw new ArgumentNullException(nameof(_numberCores)));
     }
-
-    protected abstract ICPU Create(
-        string name,
-        double clockFrequency,
-        int numberCores,
-        bool graphCore,
-        string socket,
-        IEnumerable<int> supportedMemoryFrequencies,
-        int tdp,
-        int powerConsumption);
 }

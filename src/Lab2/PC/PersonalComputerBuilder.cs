@@ -17,14 +17,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PC;
 public class PersonalComputerBuilder : IPersonalComputerBuilder
 {
     private IMotherboard? _motherboard;
-    private ICPU? _cpu;
+    private ICpu? _cpu;
     private ICooler? _cooler;
-    private IRAM? _ram;
-    private IGPU? _gpu;
+    private IRam? _ram;
+    private IGpu? _gpu;
     private List<IDrive>? _drives;
     private ICorpus? _corpus;
     private IPowerSupply? _powerSupply;
     private IWiFi? _wiFi;
+    private IValidator _validator;
+
+    public PersonalComputerBuilder(IValidator validator)
+    {
+        _validator = validator;
+    }
 
     public IPersonalComputerBuilder SetMotherboadr(IMotherboard motherboard)
     {
@@ -32,7 +38,7 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
         return this;
     }
 
-    public IPersonalComputerBuilder SetCPU(ICPU cpu)
+    public IPersonalComputerBuilder SetCPU(ICpu cpu)
     {
         _cpu = cpu;
         return this;
@@ -44,13 +50,13 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
         return this;
     }
 
-    public IPersonalComputerBuilder SetRam(IRAM ram)
+    public IPersonalComputerBuilder SetRam(IRam ram)
     {
         _ram = ram;
         return this;
     }
 
-    public IPersonalComputerBuilder SetGPU(IGPU gpu)
+    public IPersonalComputerBuilder SetGPU(IGpu gpu)
     {
         _gpu = gpu;
         return this;
@@ -82,8 +88,7 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
 
     public AssemblingPCResults Build()
     {
-        var validator = new MainValidator();
-        ValidationResult result = validator.Validate(
+        var pc = new PersonalComputer(
             _motherboard ?? throw new ArgumentNullException(nameof(_motherboard)),
             _cpu ?? throw new ArgumentNullException(nameof(_cpu)),
             _cooler ?? throw new ArgumentNullException(nameof(_cooler)),
@@ -94,19 +99,10 @@ public class PersonalComputerBuilder : IPersonalComputerBuilder
             _powerSupply ?? throw new ArgumentNullException(nameof(_powerSupply)),
             _wiFi);
 
+        ValidationResult result = _validator.Validate(pc);
+
         if (result is ValidationResult.NotSuitable)
             return new AssemblingPCResults.UnableToAssemble();
-
-        var pc = new PersonalComputer(
-            _motherboard,
-            _cpu,
-            _cooler,
-            _ram,
-            _gpu,
-            _drives,
-            _corpus,
-            _powerSupply,
-            _wiFi);
 
         if (result is ValidationResult.Warning)
             return new AssemblingPCResults.Warning(pc);

@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.GPU;
 
-public class GPUBuilder : IGPUBuilder
+public class GpuBuilder : IGpuBuilder
 {
     private double? _height;
     private double? _width;
@@ -11,45 +11,45 @@ public class GPUBuilder : IGPUBuilder
     private int? _chipFrequency;
     private int? _consumption;
 
-    public IGPUBuilder SetHeight(double height)
+    public IGpuBuilder SetHeight(double height)
     {
         _height = height;
         return this;
     }
 
-    public IGPUBuilder SetWidth(double width)
+    public IGpuBuilder SetWidth(double width)
     {
         _width = width;
         return this;
     }
 
-    public IGPUBuilder SetVideoMemory(int videoMemory)
+    public IGpuBuilder SetVideoMemory(int videoMemory)
     {
         _videoMemory = videoMemory;
         return this;
     }
 
-    public IGPUBuilder SetVersionPCIE(string versionPCIE)
+    public IGpuBuilder SetVersionPCIE(string versionPCIE)
     {
         _versionPCIE = versionPCIE;
         return this;
     }
 
-    public IGPUBuilder SetChipFrequency(int chipFrequency)
+    public IGpuBuilder SetChipFrequency(int chipFrequency)
     {
         _chipFrequency = chipFrequency;
         return this;
     }
 
-    public IGPUBuilder SetConsumption(int consumption)
+    public IGpuBuilder SetConsumption(int consumption)
     {
         _consumption = consumption;
         return this;
     }
 
-    public IGPU Build()
+    public IGpu Build()
     {
-        return new GPU(
+        return new Gpu(
             _height ?? throw new ArgumentNullException(nameof(_height)),
             _width ?? throw new ArgumentNullException(nameof(_width)),
             _videoMemory ?? throw new ArgumentNullException(nameof(_videoMemory)),

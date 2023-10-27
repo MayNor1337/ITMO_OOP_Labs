@@ -1,8 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Drives.SSD;
 
-public class SSD : ISSD
+public class Ssd : ISsd
 {
-    public SSD(ConnectionType connectionType, int sizeOfMemory, int maximumOperatingSpeed, int powerConsumption)
+    public Ssd(ConnectionType connectionType, int sizeOfMemory, int maximumOperatingSpeed, int powerConsumption)
     {
         ConnectionType = connectionType;
         SizeOfMemory = sizeOfMemory;
@@ -15,9 +15,9 @@ public class SSD : ISSD
     public int MaximumOperatingSpeed { get; }
     public int PowerConsumption { get; }
 
-    public ISSDBuilder Debuild()
+    public ISsdBuilder Debuild()
     {
-        return new SSDBuilder().SetConnectionType(ConnectionType)
+        return new SsdBuilder().SetConnectionType(ConnectionType)
             .SetSizeOfMemory(SizeOfMemory)
             .SetMaximumOperatingSpeed(MaximumOperatingSpeed)
             .SetPowerConsumption(PowerConsumption);

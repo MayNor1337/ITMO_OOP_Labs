@@ -5,9 +5,14 @@ using Itmo.ObjectOrientedProgramming.Lab2.RAM;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PC.Validators;
 
-public static class RamValidator
+public class RamValidator : IValidator
 {
-    public static ValidationResult AddRam(IRAM ram, IMotherboard motherboard, ICPU cpu)
+    public ValidationResult Validate(PersonalComputer personalComputer)
+    {
+        return AddRam(personalComputer.Ram, personalComputer.Motherboard, personalComputer.Cpu);
+    }
+
+    private static ValidationResult AddRam(IRam ram, IMotherboard motherboard, ICpu cpu)
     {
         ValidationResult result = AddRamToCpu(ram, cpu);
         if (result is not ValidationResult.Approach)
@@ -20,7 +25,7 @@ public static class RamValidator
         return new ValidationResult.Approach();
     }
 
-    private static ValidationResult AddRamToMotherboard(IRAM ram, IMotherboard motherboard)
+    private static ValidationResult AddRamToMotherboard(IRam ram, IMotherboard motherboard)
     {
         if (motherboard.StandartsDDR.Any(standard => standard == ram.DdrVersion))
             return new ValidationResult.Approach();
@@ -28,7 +33,7 @@ public static class RamValidator
         return new ValidationResult.NotSuitable();
     }
 
-    private static ValidationResult AddRamToCpu(IRAM ram, ICPU cpu)
+    private static ValidationResult AddRamToCpu(IRam ram, ICpu cpu)
     {
         if (cpu.SupportedMemoryFrequencies.Any(frec => ram.FrequenciesJEDEC.Contains(frec)))
             return new ValidationResult.Approach();

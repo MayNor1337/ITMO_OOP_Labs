@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Drives.SSD;
 
-public interface ISSDDebuilder
+public interface ISsdDebuilder
 {
-    ISSDBuilder Debuild();
+    ISsdBuilder Debuild();
 }

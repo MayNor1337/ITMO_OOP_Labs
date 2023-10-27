@@ -4,9 +4,16 @@ using Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PC.Validators;
 
-public static class CPUValidator
+public class CpuValidator : IValidator
 {
-    public static ValidationResult AddCpuToMotherboard(ICPU cpu, IMotherboard motherboard)
+    public ValidationResult Validate(PersonalComputer personalComputer)
+    {
+        ICpu cpu = personalComputer.Cpu;
+        IMotherboard motherboard = personalComputer.Motherboard;
+        return AddCpuToMotherboard(cpu, motherboard);
+    }
+
+    private static ValidationResult AddCpuToMotherboard(ICpu cpu, IMotherboard motherboard)
     {
         if (motherboard.Soket != cpu.Socket)
             return new ValidationResult.NotSuitable();
