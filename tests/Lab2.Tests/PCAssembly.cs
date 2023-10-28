@@ -21,7 +21,7 @@ public class PCAssembly
 
     private static ICooler _cooler = new CoolerBuilder().SetHeight(1)
         .SetSupportedSocets(new[] { _soket })
-        .SetMaxTDP(1000)
+        .SetMaxTDP(100)
         .Build();
 
     private static ICooler _coolerBad = new CoolerBuilder().SetHeight(1)
@@ -73,7 +73,7 @@ public class PCAssembly
         .Build();
 
     private static IPowerSupply _powerSupplyGood = new PowerSupplyBuilder().SetPeakLoad(1000)
-        .SetMaximumRcommendedLoad(100)
+        .SetMaximumRcommendedLoad(700)
         .Build();
 
     private static IPowerSupply _powerSupplyBad = new PowerSupplyBuilder().SetPeakLoad(1000)
@@ -88,19 +88,17 @@ public class PCAssembly
         .SetFrequenciesJEDEC(new[] { 1666 })
         .Build();
 
-    private static MainValidator validator = new MainValidator(new IValidator[]
-    {
-        new CpuValidator(),
-        new CoolerValidator(),
-        new RamValidator(),
-        new PowerSupplyValidator(),
-    });
-
     [Fact]
     public void PersonalComputerBuilderWeAssembleTheComputerFromSuitableParts()
     {
         // Arrange
-        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_cooler)
+        AssemblingPCResults result = new PersonalComputerBuilder(new MainValidator(new IValidator[]
+            {
+                new CpuValidator(),
+                new CoolerValidator(),
+                new RamValidator(),
+                new PowerSupplyValidator(),
+            })).SetCooler(_cooler)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
@@ -116,7 +114,13 @@ public class PCAssembly
     public void PersonalComputerBuilderWithAnWarning()
     {
         // Arrange
-        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_cooler)
+        AssemblingPCResults result = new PersonalComputerBuilder(new MainValidator(new IValidator[]
+            {
+                new CpuValidator(),
+                new CoolerValidator(),
+                new RamValidator(),
+                new PowerSupplyValidator(),
+            })).SetCooler(_cooler)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
@@ -131,7 +135,13 @@ public class PCAssembly
     [Fact]
     public void PersonalComputerBuilderBadCooler()
     {
-        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_coolerBad)
+        AssemblingPCResults result = new PersonalComputerBuilder(new MainValidator(new IValidator[]
+            {
+                new CpuValidator(),
+                new CoolerValidator(),
+                new RamValidator(),
+                new PowerSupplyValidator(),
+            })).SetCooler(_coolerBad)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
@@ -146,7 +156,13 @@ public class PCAssembly
     [Fact]
     public void PersonalComputerBuilderWithUnsuitableComponents()
     {
-        AssemblingPCResults result = new PersonalComputerBuilder(validator).SetCooler(_coolerBad)
+        AssemblingPCResults result = new PersonalComputerBuilder(new MainValidator(new IValidator[]
+            {
+                new CpuValidator(),
+                new CoolerValidator(),
+                new RamValidator(),
+                new PowerSupplyValidator(),
+            })).SetCooler(_coolerBad)
             .SetCorpus(_corpus)
             .SetRam(_ram)
             .SetDrives(new[] { _hdd })
