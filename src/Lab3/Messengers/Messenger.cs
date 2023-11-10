@@ -6,12 +6,12 @@ public class Messenger : IMessenger
 {
     private string? _lastMessage;
 
-    public void Output(IOutputter outputter)
+    public void Output(IPrinter printer)
     {
         if (_lastMessage is null)
-            outputter.Output($"Messenger: no messages received");
+            printer.Output($"Messenger: no messages received");
         else
-            outputter.Output($"Messenger: {_lastMessage}");
+            printer.Output($"Messenger: {_lastMessage}");
     }
 
     public void SendText(string text)

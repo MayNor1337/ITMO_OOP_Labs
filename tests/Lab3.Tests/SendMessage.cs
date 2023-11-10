@@ -10,7 +10,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 public class SendMessage
 {
     [Fact]
-    public void SendMessage_SavingMessage_MessageReceivedAndNotRead()
+    public void SendMessage_ShouldBeSaved_IfSend()
     {
         // Arrange
         var message = new Message(
@@ -31,7 +31,7 @@ public class SendMessage
     }
 
     [Fact]
-    public void SendMessage_SavingAndReadMessage_MessageReceivedAndRead()
+    public void SendMessage_ShouldBeSavingAndRead_IfReadMessageOnce()
     {
         // Arrange
         var message = new Message(
@@ -53,7 +53,7 @@ public class SendMessage
     }
 
     [Fact]
-    public void SendMessage_SavingAndReadMessage_ErrorMarkingReadMessage()
+    public void SendMessage_ErrorShouldOccur_ReadMessageMoreThanOnce()
     {
         // Arrange
         var message = new Message(
@@ -86,7 +86,7 @@ public class SendMessage
     }
 
     [Fact]
-    public void SendMessage_FilteringMessagesForTheUser_MessagesOfASuitableLevelOfImportance()
+    public void SendMessage_ShouldBeIgnore_WhenPriorityIsLow()
     {
         // Arrange
         var importantMessage = new Message(
@@ -97,7 +97,7 @@ public class SendMessage
         var defaultMessage = new Message(
             "Not important message",
             "Hello, this is test message. Thank you for getting it",
-            5);
+            1);
 
         var user = new MockUserAmountMessages(new User());
         var addressee = new ProxyFilterAddressee(priorityReceivedMessages: 2, new AddresseeUser(user));
@@ -107,11 +107,11 @@ public class SendMessage
         addressee.SendMessage(defaultMessage);
 
         // Assert
-        Assert.True(user.AmountMessages == 1);
+        Assert.True(user.AmountMessages == 0);
     }
 
     [Fact]
-    public void SendMessage_LoggingSendingMessages_AllSentMessagesMustLogging()
+    public void SendMessage_AllMessagesWillBeLogging_WhenWeLoggingAllMessage()
     {
         // Arrange
         var importantMessage = new Message(
@@ -137,7 +137,7 @@ public class SendMessage
     }
 
     [Fact]
-    public void SendMessage_MessengerWillDoItsJob()
+    public void Output_MessengerWillDisplayText_WhenExistingOutput()
     {
         // Arrange
         var importantMessage = new Message(
@@ -145,7 +145,7 @@ public class SendMessage
             "Hello, this is test message. Thank you for getting it",
             0);
 
-        var outputter = new MockOutputter();
+        var outputter = new MockPrinter();
         var messenger = new Messenger();
         var addressee = new AddresseeMessenger(messenger);
 

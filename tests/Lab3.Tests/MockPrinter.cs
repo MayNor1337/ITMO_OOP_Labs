@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
-public class MockOutputter : IOutputter
+public class MockPrinter : IPrinter
 {
     public int AmountCalls { get; private set; }
 

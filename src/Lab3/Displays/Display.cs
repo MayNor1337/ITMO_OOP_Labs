@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
@@ -24,5 +25,10 @@ public class Display : IDisplay
 
         _displayDriver.Clear();
         _displayDriver.WriteText($"{_lastMessage}");
+    }
+
+    public void SetColor(Color color)
+    {
+        _displayDriver.SetColor(color);
     }
 }
