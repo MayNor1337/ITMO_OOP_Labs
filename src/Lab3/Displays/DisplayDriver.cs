@@ -6,7 +6,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class DisplayDriver : IDisplayDriver
 {
+    private readonly IOutputter _outputter;
     private Color _color;
+
+    public DisplayDriver(IOutputter outputter, Color color)
+    {
+        _color = color;
+        _outputter = outputter;
+    }
+
     public void Clear()
     {
         Console.Clear();
@@ -17,8 +25,8 @@ public class DisplayDriver : IDisplayDriver
         _color = color;
     }
 
-    public void WriteText(string text, IOutputter outputter)
+    public void WriteText(string text)
     {
-        outputter.Output(Crayon.Output.Rgb(_color.R, _color.G, _color.B).Text(text));
+        _outputter.Output(Crayon.Output.Rgb(_color.R, _color.G, _color.B).Text(text));
     }
 }

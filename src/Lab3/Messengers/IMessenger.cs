@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messengers;
 
-public interface IMessenger : ISendMessage
+public interface IMessenger : ISendText
 {
     void Output(IOutputter outputter);
 }

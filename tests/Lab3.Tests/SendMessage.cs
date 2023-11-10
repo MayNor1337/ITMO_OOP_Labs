@@ -13,13 +13,12 @@ public class SendMessage
     public void SendMessage_SavingMessage_MessageReceivedAndNotRead()
     {
         // Arrange
-        IMessage message = new Message.MessageBuilder()
-            .SetHeading("Test message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(0)
-            .Build();
+        var message = new Message(
+            "Important message",
+            "Hello, this is test message. Thank you for getting it",
+            0);
 
-        var user = new User(new MessageStorageCreator());
+        var user = new User();
         var addressee = new AddresseeUser(user);
 
         // Act
@@ -35,13 +34,12 @@ public class SendMessage
     public void SendMessage_SavingAndReadMessage_MessageReceivedAndRead()
     {
         // Arrange
-        IMessage message = new Message.MessageBuilder()
-            .SetHeading("Test message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(0)
-            .Build();
+        var message = new Message(
+            "Important message",
+            "Hello, this is test message. Thank you for getting it",
+            0);
 
-        var user = new User(new MessageStorageCreator());
+        var user = new User();
         var addressee = new AddresseeUser(user);
 
         // Act
@@ -58,13 +56,12 @@ public class SendMessage
     public void SendMessage_SavingAndReadMessage_ErrorMarkingReadMessage()
     {
         // Arrange
-        IMessage message = new Message.MessageBuilder()
-            .SetHeading("Test message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(0)
-            .Build();
+        var message = new Message(
+            "Important message",
+            "Hello, this is test message. Thank you for getting it",
+            0);
 
-        var user = new User(new MessageStorageCreator());
+        var user = new User();
         var addressee = new AddresseeUser(user);
 
         // Act
@@ -92,19 +89,17 @@ public class SendMessage
     public void SendMessage_FilteringMessagesForTheUser_MessagesOfASuitableLevelOfImportance()
     {
         // Arrange
-        IMessage importantMessage = new Message.MessageBuilder()
-            .SetHeading("Important message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(0)
-            .Build();
+        var importantMessage = new Message(
+            "Important message",
+            "Hello, this is test message. Thank you for getting it",
+            0);
 
-        IMessage defaultMessage = new Message.MessageBuilder()
-            .SetHeading("Not important message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(5)
-            .Build();
+        var defaultMessage = new Message(
+            "Not important message",
+            "Hello, this is test message. Thank you for getting it",
+            5);
 
-        var user = new MockUserAmountMessages(new User(new MessageStorageCreator()));
+        var user = new MockUserAmountMessages(new User());
         var addressee = new ProxyFilterAddressee(priorityReceivedMessages: 2, new AddresseeUser(user));
 
         // Act
@@ -119,21 +114,19 @@ public class SendMessage
     public void SendMessage_LoggingSendingMessages_AllSentMessagesMustLogging()
     {
         // Arrange
-        IMessage importantMessage = new Message.MessageBuilder()
-            .SetHeading("Important message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(0)
-            .Build();
+        var importantMessage = new Message(
+            "Important message",
+            "Hello, this is test message. Thank you for getting it",
+            0);
 
-        IMessage defaultMessage = new Message.MessageBuilder()
-            .SetHeading("Not important message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(5)
-            .Build();
+        var defaultMessage = new Message(
+            "Not important message",
+            "Hello, this is test message. Thank you for getting it",
+            5);
 
         var logger = new MockLoggerForCountingCalls();
-        var user = new User(new MessageStorageCreator());
-        var addressee = new ProxyLoggerAddressee(logger, new AddresseeUser(user));
+        var user = new User();
+        var addressee = new AddresseeWithLogger(logger, new AddresseeUser(user));
 
         // Act
         addressee.SendMessage(importantMessage);
@@ -147,11 +140,10 @@ public class SendMessage
     public void SendMessage_MessengerWillDoItsJob()
     {
         // Arrange
-        IMessage importantMessage = new Message.MessageBuilder()
-            .SetHeading("Important message")
-            .SetBody("Hello, this is test message. Thank you for getting it")
-            .SetImportanceLevel(0)
-            .Build();
+        var importantMessage = new Message(
+            "Important message",
+            "Hello, this is test message. Thank you for getting it",
+            0);
 
         var outputter = new MockOutputter();
         var messenger = new Messenger();

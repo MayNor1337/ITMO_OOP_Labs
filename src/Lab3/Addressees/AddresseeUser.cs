@@ -5,14 +5,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class AddresseeUser : IAddressee
 {
-    private IUser _user;
+    private readonly User _user;
 
-    public AddresseeUser(IUser user)
+    public AddresseeUser(User user)
     {
         _user = user;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
         _user.SendMessage(message);
     }

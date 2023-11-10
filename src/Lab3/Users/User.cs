@@ -1,28 +1,33 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Users;
 
-public class User : IUser
+public class User
 {
-    private IMessageStorage _messageStorage;
+    private Dictionary<Message, MessageStatus> _messageStorage = new Dictionary<Message, MessageStatus>();
 
-    public User(IMessageStorageCreator messageStorageCreator)
+    public virtual void SendMessage(Message message)
     {
-        _messageStorage = messageStorageCreator.CreateNewStorage();
+        _messageStorage.Add(message, MessageStatus.Unread);
     }
 
-    public void SendMessage(IMessage message)
+    public virtual ReadMessageResult MarkAsRead(Message message)
     {
-        _messageStorage.AddMessage(message);
+        if (_messageStorage.ContainsKey(message) == false)
+            return new ReadMessageResult.MessageNotFound();
+
+        if (_messageStorage[message] == MessageStatus.Read)
+            return new ReadMessageResult.Wrong();
+
+        _messageStorage[message] = MessageStatus.Read;
+        return new ReadMessageResult.MessageReadSuccessfully();
     }
 
-    public void MarkAsRead(IMessage message)
+    public virtual FindMessageResult TryFindMessage(Message message)
     {
-        _messageStorage.MarkAsRead(message);
-    }
-
-    public FindMessageResult TryFindMessage(IMessage message)
-    {
-        return _messageStorage.TryFindMessage(message);
+        return _messageStorage.TryGetValue(message, value: out MessageStatus value)
+            ? new FindMessageResult.MessageFoundSuccess(value)
+            : new FindMessageResult.MessageNotFound();
     }
 }

@@ -3,29 +3,29 @@ using Itmo.ObjectOrientedProgramming.Lab3.Users;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
-public class MockUserAmountMessages : IUser
+public class MockUserAmountMessages : User
 {
-    private IUser _user;
+    private readonly User _user;
 
-    public MockUserAmountMessages(IUser user)
+    public MockUserAmountMessages(User user)
     {
         _user = user;
     }
 
     public int AmountMessages { get; private set; }
 
-    public void SendMessage(IMessage message)
+    public override void SendMessage(Message message)
     {
         _user.SendMessage(message);
         AmountMessages++;
     }
 
-    public void MarkAsRead(IMessage message)
+    public override ReadMessageResult MarkAsRead(Message message)
     {
-        _user.MarkAsRead(message);
+        return _user.MarkAsRead(message);
     }
 
-    public FindMessageResult TryFindMessage(IMessage message)
+    public override FindMessageResult TryFindMessage(Message message)
     {
         return _user.TryFindMessage(message);
     }

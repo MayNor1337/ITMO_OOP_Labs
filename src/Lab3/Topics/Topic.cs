@@ -5,14 +5,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Topics;
 
 public class Topic : ITopic
 {
-    private IAddressee _addressees;
+    private readonly IAddressee _addressees;
 
     public Topic(IAddressee addressees)
     {
         _addressees = addressees;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
         _addressees.SendMessage(message);
     }

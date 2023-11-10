@@ -5,14 +5,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class AddresseeGroup : IAddressee
 {
-    private IEnumerable<IAddressee> _addressees;
+    private readonly IEnumerable<IAddressee> _addressees;
 
     public AddresseeGroup(IEnumerable<IAddressee> addressees)
     {
         _addressees = addressees;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
         foreach (IAddressee addressee in _addressees)
         {

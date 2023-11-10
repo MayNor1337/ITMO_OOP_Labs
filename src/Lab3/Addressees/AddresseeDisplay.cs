@@ -5,15 +5,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class AddresseeDisplay : IAddressee
 {
-    private IDisplay _display;
+    private readonly IDisplay _display;
 
     public AddresseeDisplay(IDisplay display)
     {
         _display = display;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
-        _display.SendMessage(message);
+        _display.SendText($"{message.Heading}\n{message.Body}");
+        _display.DisplayMessage();
     }
 }

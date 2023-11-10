@@ -1,32 +1,28 @@
 ﻿using System;
-using System.Drawing;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
-using Itmo.ObjectOrientedProgramming.Lab3.Outputters;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class Display : IDisplay
 {
-    private IDisplayDriver _displayDriver;
-    private IMessage? _lastMessage;
+    private readonly IDisplayDriver _displayDriver;
+    private string? _lastMessage;
 
     public Display(IDisplayDriver displayDriver)
     {
         _displayDriver = displayDriver;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendText(string text)
     {
-        _lastMessage = message;
+        _lastMessage = text;
     }
 
-    public void DisplayMessage(IOutputter outputter, Color color)
+    public void DisplayMessage()
     {
         if (_lastMessage is null)
             throw new ArgumentException(nameof(_lastMessage));
 
         _displayDriver.Clear();
-        _displayDriver.SetColor(color);
-        _displayDriver.WriteText($"{_lastMessage.Heading}\n{_lastMessage.Body}", outputter);
+        _displayDriver.WriteText($"{_lastMessage}");
     }
 }

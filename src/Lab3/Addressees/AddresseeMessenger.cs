@@ -5,15 +5,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class AddresseeMessenger : IAddressee
 {
-    private IMessenger _messenger;
+    private readonly IMessenger _messenger;
 
     public AddresseeMessenger(IMessenger messenger)
     {
         _messenger = messenger;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
-        _messenger.SendMessage(message);
+        _messenger.SendText($"{message.Heading}\n{message.Body}");
     }
 }

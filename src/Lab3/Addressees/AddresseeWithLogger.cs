@@ -3,18 +3,18 @@ using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
-public class ProxyLoggerAddressee : ISendMessage
+public class AddresseeWithLogger : IAddressee
 {
-    private ILogger _logger;
-    private IAddressee _addressee;
+    private readonly ILogger _logger;
+    private readonly IAddressee _addressee;
 
-    public ProxyLoggerAddressee(ILogger logger, IAddressee addressee)
+    public AddresseeWithLogger(ILogger logger, IAddressee addressee)
     {
         _logger = logger;
         _addressee = addressee;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
         _addressee.SendMessage(message);
         _logger.Log($"{message.Heading}\n{message.Body}");

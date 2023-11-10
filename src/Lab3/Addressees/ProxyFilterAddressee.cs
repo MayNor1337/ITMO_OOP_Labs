@@ -4,8 +4,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class ProxyFilterAddressee : IAddressee
 {
-    private int _priorityReceivedMessages;
-    private IAddressee _addressee;
+    private readonly int _priorityReceivedMessages;
+    private readonly IAddressee _addressee;
 
     public ProxyFilterAddressee(int priorityReceivedMessages, IAddressee addressee)
     {
@@ -13,9 +13,9 @@ public class ProxyFilterAddressee : IAddressee
         _addressee = addressee;
     }
 
-    public void SendMessage(IMessage message)
+    public void SendMessage(Message message)
     {
-        if (message.ImportanceLevel < _priorityReceivedMessages)
+        if (message.ImportanceLevel >= _priorityReceivedMessages)
         {
             _addressee.SendMessage(message);
         }

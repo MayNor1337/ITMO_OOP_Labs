@@ -1,9 +1,6 @@
-﻿using System.Drawing;
-using Itmo.ObjectOrientedProgramming.Lab3.Outputters;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
-
-public interface IDisplay : ISendMessage
+public interface IDisplay : ISendText
 {
-    void DisplayMessage(IOutputter outputter, Color color);
+    void DisplayMessage();
 }
