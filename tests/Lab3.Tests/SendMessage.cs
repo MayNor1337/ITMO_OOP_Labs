@@ -1,5 +1,4 @@
-﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Addressees;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Messengers;
 using Itmo.ObjectOrientedProgramming.Lab3.Users;
@@ -69,20 +68,8 @@ public class SendMessage
         user.MarkAsRead(message);
 
         // Assert
-        try
-        {
-            user.MarkAsRead(message);
-        }
-        catch (Exception e)
-        {
-            if (e is ArgumentException)
-            {
-                Assert.True(true);
-                return;
-            }
-
-            throw;
-        }
+        ReadMessageResult result = user.MarkAsRead(message);
+        Assert.True(result is ReadMessageResult.Wrong);
     }
 
     [Fact]
