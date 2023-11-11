@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
-public class SendMessage
+public class TestSendMessage
 {
     [Fact]
     public void SendMessage_ShouldBeSaved_IfSend()
