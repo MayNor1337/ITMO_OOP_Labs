@@ -15,5 +15,6 @@ public class AddresseeMessenger : IAddressee
     public void SendMessage(Message message)
     {
         _messenger.SendText($"{message.Heading}\n{message.Body}");
+        _messenger.Output();
     }
 }

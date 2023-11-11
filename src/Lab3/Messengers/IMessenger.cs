@@ -1,8 +1,8 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Outputters;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Messengers;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Messengers;
-
-public interface IMessenger : ISendText
+public interface IMessenger
 {
-    void Output(IPrinter printer);
+    void Output();
+
+    public void SendText(string text);
 }

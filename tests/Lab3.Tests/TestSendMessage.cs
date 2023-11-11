@@ -135,12 +135,12 @@ public class TestSendMessage
 
         var stream = new VirtualOutput();
         var outputter = new MockPrinter(stream);
-        var messenger = new Messenger();
+        var messenger = new Messenger(outputter);
         var addressee = new AddresseeMessenger(messenger);
 
         // Act
         addressee.SendMessage(importantMessage);
-        messenger.Output(outputter);
+        messenger.Output();
 
         // Assert
         Assert.True(stream.Output.Contains(referenceString));
