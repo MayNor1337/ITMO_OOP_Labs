@@ -131,8 +131,10 @@ public class SendMessage
             "Important message",
             "Hello, this is test message. Thank you for getting it",
             0);
+        string referenceString = "Messenger: Important message\nHello, this is test message. Thank you for getting it";
 
-        var outputter = new MockPrinter();
+        var stream = new VirtualOutput();
+        var outputter = new MockPrinter(stream);
         var messenger = new Messenger();
         var addressee = new AddresseeMessenger(messenger);
 
@@ -141,6 +143,6 @@ public class SendMessage
         messenger.Output(outputter);
 
         // Assert
-        Assert.True(outputter.AmountCalls == 1);
+        Assert.True(stream.Output.Contains(referenceString));
     }
 }
