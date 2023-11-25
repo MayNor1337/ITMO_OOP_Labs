@@ -7,8 +7,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands
 
 public class ListVisitor : IVisitor
 {
-    private char _symbolFolder;
-    private char _symbolFile;
+    private string _symbolFolder;
+    private string _symbolFile;
     private char _symbolIndent;
     private IPrinter _printer;
 

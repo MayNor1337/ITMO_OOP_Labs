@@ -2,8 +2,8 @@
 
 public class ConfigModel
 {
-    public char SymbolFolder { get; set; } = '\udcc1';
-    public char SymbolFile { get; set; } = '\udd76';
+    public string SymbolFolder { get; set; } = "[+]";
+    public string SymbolFile { get; set; } = "[ ]";
     public char SymbolIndent { get; set; } = '\t';
     public int Depth { get; set; } = 1;
 }
