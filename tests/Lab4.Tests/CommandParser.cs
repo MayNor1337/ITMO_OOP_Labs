@@ -97,7 +97,7 @@ public class CommandParser
     [MemberData(nameof(FileMoveCommand))]
     [MemberData(nameof(FileDeleteCommand))]
     [MemberData(nameof(FileRenameCommand))]
-    public void HandleWithParser(string data)
+    public void Handle_ShouldCreateCommand_WhenInputCorrect(string data)
     {
         // Arrange
         ICommandParser parser = new ParserFactory().CreateParser();
