@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 
@@ -18,11 +18,11 @@ public class ListBuilder : IListBuilder
         return this;
     }
 
-    public BuildResult Build()
+    public CommandBuildResult Build()
     {
         if (_depth is null)
-            return new BuildResult.Successfully(new ListCommand(_printer));
+            return new CommandBuildResult.Successfully(new ListCommand(_printer));
 
-        return new BuildResult.Successfully(new ListCommand(_printer, (int)_depth));
+        return new CommandBuildResult.Successfully(new ListCommand(_printer, (int)_depth));
     }
 }

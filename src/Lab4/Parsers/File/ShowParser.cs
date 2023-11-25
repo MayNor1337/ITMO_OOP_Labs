@@ -1,5 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.File.ShowArguments;
 
@@ -16,14 +15,14 @@ public class ShowParser : ChainCommandBase
         _printer = printer;
     }
 
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "show")
             return Next.Handle(command);
 
         string path = command.Next().GetCurrentString();
         if (path is "")
-            return new ResultParsingCommand.UnknownCommand();
+            return new CommandBuildResult.ParameterNotSpecified();
 
         var builder = new ShowBuilder(path, _printer);
 
@@ -32,15 +31,16 @@ public class ShowParser : ChainCommandBase
         {
             ResultParsingArgument parseRes = _argumentParser.Handle(command, builder);
             if (parseRes is ResultParsingArgument.UnknownArgument)
-                return new ResultParsingCommand.UnknownCommand();
+                return new CommandBuildResult.UnknownFlagValue();
+
             command.Next();
         }
 
-        BuildResult result = builder.Build();
+        CommandBuildResult result = builder.Build();
 
-        if (result is BuildResult.Successfully successfully)
-            return new ResultParsingCommand.CommandReceived(successfully.Command);
+        if (result is CommandBuildResult.Successfully successfully)
+            return new CommandBuildResult.Successfully(successfully.Command);
 
-        return new ResultParsingCommand.UnknownCommand();
+        return result;
     }
 }

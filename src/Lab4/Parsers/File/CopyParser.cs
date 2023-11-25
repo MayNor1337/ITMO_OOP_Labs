@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.File;
 
 public class CopyParser : ChainCommandBase
 {
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "copy")
             return Next.Handle(command);
@@ -13,8 +13,8 @@ public class CopyParser : ChainCommandBase
         string destinationPath = command.Next().GetCurrentString();
 
         if (sourcePath is "")
-            return new ResultParsingCommand.UnknownCommand();
+            return new CommandBuildResult.ParameterNotSpecified();
 
-        return new ResultParsingCommand.CommandReceived(new CopyCommand(sourcePath, destinationPath));
+        return new CommandBuildResult.Successfully(new CopyCommand(sourcePath, destinationPath));
     }
 }

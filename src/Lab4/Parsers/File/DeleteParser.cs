@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.File;
 
 public class DeleteParser : ChainCommandBase
 {
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "delete")
             return Next.Handle(command);
@@ -12,8 +12,8 @@ public class DeleteParser : ChainCommandBase
         string path = command.Next().GetCurrentString();
 
         if (path is "")
-            return new ResultParsingCommand.UnknownCommand();
+            return new CommandBuildResult.ParameterNotSpecified();
 
-        return new ResultParsingCommand.CommandReceived(new DeleteCommand(path));
+        return new CommandBuildResult.Successfully(new DeleteCommand(path));
     }
 }

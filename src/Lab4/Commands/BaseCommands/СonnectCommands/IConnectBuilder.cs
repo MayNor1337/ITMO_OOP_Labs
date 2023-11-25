@@ -1,6 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
-
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.СonnectCommands;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.СonnectCommands;
 
 public interface IConnectBuilder : IBuilder
 {

@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.File;
 
 public class RenameParser : ChainCommandBase
 {
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "move")
             return Next.Handle(command);
@@ -13,8 +13,8 @@ public class RenameParser : ChainCommandBase
         string name = command.Next().GetCurrentString();
 
         if (path is "" || name is "")
-            return new ResultParsingCommand.UnknownCommand();
+            return new CommandBuildResult.ParameterNotSpecified();
 
-        return new ResultParsingCommand.CommandReceived(new RenameCommand(path, name));
+        return new CommandBuildResult.Successfully(new RenameCommand(path, name));
     }
 }

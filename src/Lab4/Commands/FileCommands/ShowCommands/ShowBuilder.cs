@@ -1,5 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
+using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
 
@@ -27,11 +27,11 @@ public class ShowBuilder : IShowBuilder
         return this;
     }
 
-    public BuildResult Build()
+    public CommandBuildResult Build()
     {
         if (_mode is null or "console")
-            return new BuildResult.Successfully(new ShowConsoleModeCommand(_path, _printer));
+            return new CommandBuildResult.Successfully(new ShowConsoleModeCommand(_path, _printer));
 
-        return new BuildResult.Fail(ErrorDescriptions.UnknownFlagValue());
+        return new CommandBuildResult.UnknownFlagValue();
     }
 }

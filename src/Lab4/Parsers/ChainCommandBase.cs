@@ -33,5 +33,5 @@ public abstract class ChainCommandBase : ICommandParser
         return this;
     }
 
-    public abstract ResultParsingCommand Handle(StringIterator command);
+    public abstract CommandBuildResult Handle(StringIterator command);
 }

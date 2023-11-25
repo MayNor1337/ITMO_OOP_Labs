@@ -12,22 +12,43 @@ public class LocalFileSystem : IFileSystem
 
     public bool ExistsDirectory(string path)
     {
-        throw new System.NotImplementedException();
+        return Directory.Exists(path);
     }
 
-    public void Copy(string firstPath, string secondPath)
+    public ResultExecution Copy(string firstPath, string secondPath)
     {
+        if (File.Exists(firstPath) is false)
+            return new ResultExecution.FileDoesNotExist();
+
+        if (Directory.Exists(secondPath) is false)
+            return new ResultExecution.DirectoryDoesNotExist();
+
         File.Copy(firstPath, secondPath);
+
+        return new ResultExecution.Successes();
     }
 
-    public void Delete(string path)
+    public ResultExecution Delete(string path)
     {
+        if (File.Exists(path) is false)
+            return new ResultExecution.FileDoesNotExist();
+
         File.Delete(path);
+
+        return new ResultExecution.Successes();
     }
 
-    public void Move(string firstPath, string secondPath)
+    public ResultExecution Move(string firstPath, string secondPath)
     {
+        if (File.Exists(firstPath) is false)
+            return new ResultExecution.FileDoesNotExist();
+
+        if (Directory.Exists(secondPath) is false)
+            return new ResultExecution.DirectoryDoesNotExist();
+
         File.Move(firstPath, secondPath);
+
+        return new ResultExecution.Successes();
     }
 
     public Stream Open(string path)

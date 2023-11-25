@@ -7,8 +7,8 @@ public class NullableNext : ICommandParser
         return this;
     }
 
-    public ResultParsingCommand Handle(StringIterator command)
+    public CommandBuildResult Handle(StringIterator command)
     {
-        return new ResultParsingCommand.UnknownCommand();
+        return new CommandBuildResult.ParameterNotSpecified();
     }
 }

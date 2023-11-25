@@ -1,11 +1,11 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.DisconnectCommands;
 
 public class DisconnectBuilder : IBuilder
 {
-    public BuildResult Build()
+    public CommandBuildResult Build()
     {
-        return new BuildResult.Successfully(new DisconnectCommand());
+        return new CommandBuildResult.Successfully(new DisconnectCommand());
     }
 }

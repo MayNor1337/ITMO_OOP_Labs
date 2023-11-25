@@ -4,15 +4,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.Tree;
 
 public class GoToParser : ChainCommandBase
 {
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "goto")
             return Next.Handle(command);
 
         string path = command.Next().GetCurrentString();
         if (path is "")
-            return new ResultParsingCommand.UnknownCommand();
+            return new CommandBuildResult.ParameterNotSpecified();
 
-        return new ResultParsingCommand.CommandReceived(new GoToCommand(path));
+        return new CommandBuildResult.Successfully(new GoToCommand(path));
     }
 }

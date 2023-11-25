@@ -1,4 +1,5 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands;
 
@@ -11,18 +12,17 @@ public class GoToCommand : ICommand
         _path = path;
     }
 
-    public ResultExecuteCommand Execute(Context context)
+    public ResultExecution Execute(Context context)
     {
         if (context.FileSystem is null)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.NoConnection());
+            return new ResultExecution.NotConnectedToSystem();
 
         string path = context.FileSystem.MergePaths(context.NowAddress, _path);
-
-        if (context.FileSystem.ExistsFile(path) == false)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.FileDoesNotExist());
+        if (context.FileSystem.ExistsDirectory(path) == false)
+            return new ResultExecution.DirectoryDoesNotExist();
 
         context.NowAddress = path;
 
-        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
+        return new ResultExecution.Successes();
     }
 }

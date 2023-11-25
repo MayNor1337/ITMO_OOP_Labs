@@ -4,5 +4,5 @@ public interface ICommandParser
 {
     ICommandParser AddNext(ICommandParser command);
 
-    ResultParsingCommand Handle(StringIterator command);
+    CommandBuildResult Handle(StringIterator command);
 }

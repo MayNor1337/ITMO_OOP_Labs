@@ -103,9 +103,9 @@ public class CommandParser
         ICommandParser parser = new ParserFactory().CreateParser();
 
         // Act
-        ResultParsingCommand result = parser.Handle(new StringIterator(data));
+        CommandBuildResult commandBuildResult = parser.Handle(new StringIterator(data));
 
         // Assert
-        Assert.IsType<ResultParsingCommand.CommandReceived>(result);
+        Assert.IsType<CommandBuildResult.Successfully>(commandBuildResult);
     }
 }

@@ -8,11 +8,11 @@ public interface IFileSystem
 
     bool ExistsDirectory(string path);
 
-    void Copy(string firstPath, string secondPath);
+    ResultExecution Copy(string firstPath, string secondPath);
 
-    void Delete(string path);
+    ResultExecution Delete(string path);
 
-    void Move(string firstPath, string secondPath);
+    ResultExecution Move(string firstPath, string secondPath);
 
     Stream Open(string path);
 

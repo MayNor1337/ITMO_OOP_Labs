@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
 
@@ -19,32 +20,21 @@ public class ShowConsoleModeCommand : ICommand
         _printer = printer;
     }
 
-    public ResultExecuteCommand Execute(Context context)
+    public ResultExecution Execute(Context context)
     {
         string path = context.NowAddress + _path;
 
         if (context.FileSystem is null)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.NoConnection());
+            return new ResultExecution.NotConnectedToSystem();
 
         if (_supportedFileTypes.Contains(context.FileSystem.GetFileExtension(path)) == false)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.FileFormatNotSupported());
+            return new ResultExecution.FileIsNotSupported();
 
         using var reader = new StreamReader(context.FileSystem.Open(path), Encoding.UTF8);
 
         string content = reader.ReadToEnd();
         _printer.Print(content);
 
-        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
-    }
-
-    private static string GetFileExtension(string path)
-    {
-        var sb = new StringBuilder(path);
-        int count = sb.Length - 1;
-
-        while (count != 0 && sb[count] != '.')
-            count--;
-
-        return sb.ToString(count + 1, sb.Length - count);
+        return new ResultExecution.Successes();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands.Components;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 using Itmo.ObjectOrientedProgramming.Lab4.Visitor;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
@@ -16,10 +17,10 @@ public class ListCommand : ICommand
         _printer = printer;
     }
 
-    public ResultExecuteCommand Execute(Context context)
+    public ResultExecution Execute(Context context)
     {
         if (context.FileSystem is null)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.NoConnection());
+            return new ResultExecution.NotConnectedToSystem();
 
         string path = context.NowAddress;
 
@@ -33,7 +34,7 @@ public class ListCommand : ICommand
         var directoryVisitor = new ListVisitor(_printer);
         nowDirectory.Accept(directoryVisitor);
 
-        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
+        return new ResultExecution.Successes();
     }
 
     private IEnumerable<IVisitorComponent> GetLocalFiles(Context context, string path, int depth)
@@ -43,7 +44,7 @@ public class ListCommand : ICommand
 
         var visitorComponents = new List<IVisitorComponent>();
 
-        string[] directories = context.FileSystem.GetFiles(context.NowAddress);
+        string[] directories = context.FileSystem.GetDirectories(context.NowAddress);
         string[] files = context.FileSystem.GetFiles(context.NowAddress);
 
         foreach (string name in directories)

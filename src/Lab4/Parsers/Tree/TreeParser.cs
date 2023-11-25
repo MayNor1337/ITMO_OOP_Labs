@@ -9,7 +9,7 @@ public class TreeParser : ChainCommandBase
         _semiChain = semiChain;
     }
 
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "tree")
             return Next.Handle(command);

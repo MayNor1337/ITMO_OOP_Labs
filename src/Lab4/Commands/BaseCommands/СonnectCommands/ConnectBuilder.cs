@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.СonnectCommands;
 
@@ -24,14 +24,14 @@ public class ConnectBuilder : IConnectBuilder
         return this;
     }
 
-    public BuildResult Build()
+    public CommandBuildResult Build()
     {
         if (_mode is null or "")
-            return new BuildResult.Fail(ErrorDescriptions.ParameterNotSpecified());
+            return new CommandBuildResult.ParameterNotSpecified();
 
         if (_mode is "local")
-            return new BuildResult.Successfully(new LocalConnectCommand(_address));
+            return new CommandBuildResult.Successfully(new LocalConnectCommand(_address));
 
-        return new BuildResult.Fail(ErrorDescriptions.UnknownFlagValue());
+        return new CommandBuildResult.ParameterNotSpecified();
     }
 }

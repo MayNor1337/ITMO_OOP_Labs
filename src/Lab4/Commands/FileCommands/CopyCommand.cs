@@ -1,4 +1,5 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands;
 
@@ -13,18 +14,14 @@ public class CopyCommand : ICommand
         _destinationPath = destinationPath;
     }
 
-    public ResultExecuteCommand Execute(Context context)
+    public ResultExecution Execute(Context context)
     {
         if (context.FileSystem is null)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.NoConnection());
+            return new ResultExecution.NotConnectedToSystem();
 
         string path = context.FileSystem.MergePaths(context.NowAddress, _sourcePath);
         string destinationPath = context.FileSystem.MergePaths(context.NowAddress, _destinationPath);
 
-        if (context.FileSystem.ExistsFile(path) == false)
-            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.FileDoesNotExist());
-
-        context.FileSystem.Copy(path, destinationPath);
-        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
+        return context.FileSystem.Copy(path, destinationPath);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Factory;
 
@@ -19,22 +19,17 @@ public static class App
             if (enteredString is null)
                 continue;
 
-            ResultParsingCommand result = parser.Handle(new StringIterator(enteredString));
+            CommandBuildResult commandBuildResult = parser.Handle(new StringIterator(enteredString));
 
-            if (result is not ResultParsingCommand.CommandReceived resultWithCommand)
+            if (commandBuildResult is not CommandBuildResult.Successfully resultWithCommand)
             {
-                Console.WriteLine(ErrorDescriptions.UnknownCommand());
+                Console.WriteLine(commandBuildResult.Message);
                 continue;
             }
 
-            ResultExecuteCommand resultExecute = resultWithCommand.Command.Execute(localContext);
-            if (resultExecute is ResultExecuteCommand.CommandExecutionError resultError)
-            {
-                Console.WriteLine(resultError.Description);
-                continue;
-            }
+            ResultExecution resultExecute = resultWithCommand.Command.Execute(localContext);
 
-            Console.WriteLine(ErrorDescriptions.CommandSuccessfully());
+            Console.WriteLine(resultExecute.Message);
         }
     }
 }

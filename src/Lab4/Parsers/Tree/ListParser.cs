@@ -1,5 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Tree.ListArguments;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.Tree;
@@ -15,7 +14,7 @@ public class ListParser : ChainCommandBase
         _printer = printer;
     }
 
-    public override ResultParsingCommand Handle(StringIterator command)
+    public override CommandBuildResult Handle(StringIterator command)
     {
         if (command.GetCurrentString() != "list")
             return Next.Handle(command);
@@ -27,14 +26,14 @@ public class ListParser : ChainCommandBase
         {
             ResultParsingArgument parseRes = _argumentParser.Handle(command, builder);
             if (parseRes is ResultParsingArgument.UnknownArgument)
-                return new ResultParsingCommand.UnknownCommand();
+                return new CommandBuildResult.UnknownFlagValue();
             command.Next();
         }
 
-        BuildResult result = builder.Build();
-        if (result is BuildResult.Successfully successfully)
-            return new ResultParsingCommand.CommandReceived(successfully.Command);
+        CommandBuildResult result = builder.Build();
+        if (result is CommandBuildResult.Successfully successfully)
+            return new CommandBuildResult.Successfully(successfully.Command);
 
-        return new ResultParsingCommand.UnknownCommand();
+        return result;
     }
 }
