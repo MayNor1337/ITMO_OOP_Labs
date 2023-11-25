@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.Json;
 using Itmo.ObjectOrientedProgramming.Lab4.Configs;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
@@ -13,8 +14,10 @@ public static class App
     public static void Main()
     {
         var localContext = new Context();
-        string jsonString = "Configs/AppConfig.json";
-        ConfigModel? config = JsonSerializer.Deserialize<ConfigModel>(jsonString);
+
+        string configFilePath = Path.Combine("..", "..", "..", "..", "..", "src/Lab4/Configs/AppConfig.json");
+        string jsonString = File.ReadAllText(configFilePath);
+        ConfigModel?config = JsonSerializer.Deserialize<ConfigModel>(jsonString);
 
         if (config is null)
         {
