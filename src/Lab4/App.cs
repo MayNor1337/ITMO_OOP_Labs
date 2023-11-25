@@ -1,4 +1,5 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Factory;
@@ -20,8 +21,20 @@ public static class App
 
             ResultParsingCommand result = parser.Handle(new StringIterator(enteredString));
 
-            if (result is ResultParsingCommand.CommandReceived resultWithCommand)
-                resultWithCommand.Command.Execute(localContext);
+            if (result is not ResultParsingCommand.CommandReceived resultWithCommand)
+            {
+                Console.WriteLine(ErrorDescriptions.UnknownCommand());
+                continue;
+            }
+
+            ResultExecuteCommand resultExecute = resultWithCommand.Command.Execute(localContext);
+            if (resultExecute is ResultExecuteCommand.CommandExecutionError resultError)
+            {
+                Console.WriteLine(resultError.Description);
+                continue;
+            }
+
+            Console.WriteLine(ErrorDescriptions.CommandSuccessfully());
         }
     }
 }

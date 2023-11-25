@@ -13,4 +13,8 @@ public record ErrorDescriptions
     public static string FileDoesNotExist() => "The file does not exist";
 
     public static string FileFormatNotSupported() => "The file format is not supported";
+
+    public static string UnknownCommand() => "Unknown command";
+
+    public static string CommandSuccessfully() => "The command was executed successfully";
 }
