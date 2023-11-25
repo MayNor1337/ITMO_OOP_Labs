@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Configs;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Factory;
 using Xunit;
@@ -21,7 +22,7 @@ public class CommandParser
         {
             new object[]
             {
-                @"disconnect ",
+                @"disconnect",
             },
         };
 
@@ -100,7 +101,7 @@ public class CommandParser
     public void Handle_ShouldCreateCommand_WhenInputCorrect(string data)
     {
         // Arrange
-        ICommandParser parser = new ParserFactory().CreateParser();
+        ICommandParser parser = new ParserFactory(new ConfigModel()).CreateParser();
 
         // Act
         CommandBuildResult commandBuildResult = parser.Handle(new StringIterator(data));

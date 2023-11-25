@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands.Components;
+using Itmo.ObjectOrientedProgramming.Lab4.Configs;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 using Itmo.ObjectOrientedProgramming.Lab4.Visitor;
@@ -10,11 +11,17 @@ public class ListCommand : ICommand
 {
     private int _depth;
     private IPrinter _printer;
+    private ConfigModel _configModel;
 
-    public ListCommand(IPrinter printer, int depth = 1)
+    public ListCommand(IPrinter printer, ConfigModel configModel, int? depth)
     {
-        _depth = depth;
+        if (depth is null)
+            _depth = configModel.Depth;
+        else
+            _depth = (int)depth;
+
         _printer = printer;
+        _configModel = configModel;
     }
 
     public ResultExecution Execute(Context context)
@@ -31,7 +38,7 @@ public class ListCommand : ICommand
                 context.FileSystem.GetDirectoryName(path),
                 0);
 
-        var directoryVisitor = new ListVisitor(_printer);
+        var directoryVisitor = new ListVisitor(_printer, _configModel);
         nowDirectory.Accept(directoryVisitor);
 
         return new ResultExecution.Successes();

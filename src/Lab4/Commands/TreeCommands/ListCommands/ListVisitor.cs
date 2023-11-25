@@ -1,19 +1,23 @@
 ﻿using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands.Components;
+using Itmo.ObjectOrientedProgramming.Lab4.Configs;
 using Itmo.ObjectOrientedProgramming.Lab4.Visitor;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 
 public class ListVisitor : IVisitor
 {
-    private char _symbolFolder = '\udcc1';
-    private char _symbolFile = '\udd76';
-    private char _symbolIndent = '\t';
+    private char _symbolFolder;
+    private char _symbolFile;
+    private char _symbolIndent;
     private IPrinter _printer;
 
-    public ListVisitor(IPrinter printer)
+    public ListVisitor(IPrinter printer, ConfigModel configModel)
     {
         _printer = printer;
+        _symbolFolder = configModel.SymbolFolder;
+        _symbolFile = configModel.SymbolFile;
+        _symbolIndent = configModel.SymbolIndent;
     }
 
     public void Visit(IVisitorComponent component)

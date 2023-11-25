@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parsers.BaseCommand;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Configs;
+using Itmo.ObjectOrientedProgramming.Lab4.Parsers.BaseCommand;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.BaseCommand.ConnectArguments;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.File;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Tree;
@@ -9,6 +10,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.Factory;
 
 public class ParserFactory : IParserFactory
 {
+    private ConfigModel _configModel;
+
+    public ParserFactory(ConfigModel configModel)
+    {
+        _configModel = configModel;
+    }
+
     public ICommandParser CreateParser()
     {
         return FileCommand()
@@ -29,16 +37,6 @@ public class ParserFactory : IParserFactory
         return new ConnectParser(argumentParser);
     }
 
-    // Tree commands
-    private static ICommandParser TreeCommand()
-    {
-        ICommandParser secondWordParser =
-            new GoToParser()
-                .AddNext(new ListParser(new DepthParser(), new ConsolePrinter()));
-
-        return new TreeParser(secondWordParser);
-    }
-
     // File commands
     private static ICommandParser FileCommand()
     {
@@ -50,5 +48,15 @@ public class ParserFactory : IParserFactory
                 .AddNext(new RenameParser());
 
         return new FileParser(secondWordParser);
+    }
+
+    // Tree commands
+    private ICommandParser TreeCommand()
+    {
+        ICommandParser secondWordParser =
+            new GoToParser()
+                .AddNext(new ListParser(new DepthParser(), new ConsolePrinter(), _configModel));
+
+        return new TreeParser(secondWordParser);
     }
 }
