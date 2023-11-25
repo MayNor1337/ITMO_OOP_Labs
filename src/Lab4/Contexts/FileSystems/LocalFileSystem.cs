@@ -76,7 +76,7 @@ public class LocalFileSystem : IFileSystem
         int i = path.Length - 1;
         var sb = new StringBuilder();
         while (path[i] != '\\' && path[i] != '/' && i != 0)
-            sb.Append(path[i]);
+            sb.Append(path[i--]);
 
         return sb.ToString();
     }
@@ -86,7 +86,7 @@ public class LocalFileSystem : IFileSystem
         int i = path.Length - 1;
         var sb = new StringBuilder();
         while (path[i] != '.' && i != 0)
-            sb.Append(path[i]);
+            sb.Append(path[i--]);
 
         return sb.ToString();
     }
