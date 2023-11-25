@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
@@ -9,31 +10,31 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands
 public class ShowConsoleModeCommand : ICommand
 {
     private string _path;
+    private IPrinter _printer;
     private string[] _supportedFileTypes = new[] { "txt" };
 
-    public ShowConsoleModeCommand(string path)
+    public ShowConsoleModeCommand(string path, IPrinter printer)
     {
         _path = path;
+        _printer = printer;
     }
 
-    public void Execute(Context context)
+    public ResultExecuteCommand Execute(Context context)
     {
         string path = context.NowAddress + _path;
-        if (_supportedFileTypes.Contains(GetFileExtension(path)))
-            return;
 
         if (context.FileSystem is null)
-            return;
+            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.NoConnection());
 
-        StreamReader file = context.FileSystem.Open(path);
+        if (_supportedFileTypes.Contains(context.FileSystem.GetFileExtension(path)) == false)
+            return new ResultExecuteCommand.CommandExecutionError(ErrorDescriptions.FileFormatNotSupported());
 
-        while (file.EndOfStream == false)
-        {
-            string? line = file.ReadLine();
-            Console.WriteLine(line);
-        }
+        using var reader = new StreamReader(context.FileSystem.Open(path), Encoding.UTF8);
 
-        context.FileSystem.Close(file);
+        string content = reader.ReadToEnd();
+        _printer.Print(content);
+
+        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
     }
 
     private static string GetFileExtension(string path)

@@ -2,12 +2,12 @@
 
 public abstract class ChainCommandBase : ICommandParser
 {
-    protected ICommandParser? Next { get; private set; }
+    protected ICommandParser Next { get; private set; } = new NullableNext();
     protected ICommandParser? NextSubquery { get; private set; }
 
     public ICommandParser AddNext(ICommandParser command)
     {
-        if (Next is null)
+        if (Next is NullableNext)
         {
             Next = command;
         }
@@ -21,7 +21,7 @@ public abstract class ChainCommandBase : ICommandParser
 
     public ICommandParser AddNextSubquery(ICommandParser command)
     {
-        if (Next is null)
+        if (Next is NullableNext)
         {
             Next = command;
         }

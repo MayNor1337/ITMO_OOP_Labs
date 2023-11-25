@@ -1,12 +1,18 @@
 ﻿using System.IO;
+using System.Text;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 
 public class LocalFileSystem : IFileSystem
 {
-    public bool Exists(string path)
+    public bool ExistsFile(string path)
     {
         return File.Exists(path);
+    }
+
+    public bool ExistsDirectory(string path)
+    {
+        throw new System.NotImplementedException();
     }
 
     public void Copy(string firstPath, string secondPath)
@@ -24,13 +30,43 @@ public class LocalFileSystem : IFileSystem
         File.Move(firstPath, secondPath);
     }
 
-    public StreamReader Open(string path)
+    public Stream Open(string path)
     {
-        return new StreamReader(path);
+        return new FileStream(path, FileMode.Open, FileAccess.Read);
     }
 
-    public void Close(StreamReader file)
+    public string[] GetFiles(string path)
     {
-        file.Close();
+        return Directory.GetFiles(path);
+    }
+
+    public string[] GetDirectories(string path)
+    {
+        return Directory.GetDirectories(path);
+    }
+
+    public string MergePaths(string path, string folderName)
+    {
+        return path + '\\' + folderName;
+    }
+
+    public string GetDirectoryName(string path)
+    {
+        int i = path.Length - 1;
+        var sb = new StringBuilder();
+        while (path[i] != '\\' && path[i] != '/' && i != 0)
+            sb.Append(path[i]);
+
+        return sb.ToString();
+    }
+
+    public string GetFileExtension(string path)
+    {
+        int i = path.Length - 1;
+        var sb = new StringBuilder();
+        while (path[i] != '.' && i != 0)
+            sb.Append(path[i]);
+
+        return sb.ToString();
     }
 }

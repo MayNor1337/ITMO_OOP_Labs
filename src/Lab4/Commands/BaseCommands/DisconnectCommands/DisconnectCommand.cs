@@ -4,8 +4,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.DisconnectCo
 
 public class DisconnectCommand : ICommand
 {
-    public void Execute(Context context)
+    public ResultExecuteCommand Execute(Context context)
     {
         context.NowAddress = string.Empty;
+        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
     }
 }

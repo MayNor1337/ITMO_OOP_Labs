@@ -4,7 +4,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 
 public interface IFileSystem
 {
-    bool Exists(string path);
+    bool ExistsFile(string path);
+
+    bool ExistsDirectory(string path);
 
     void Copy(string firstPath, string secondPath);
 
@@ -12,7 +14,15 @@ public interface IFileSystem
 
     void Move(string firstPath, string secondPath);
 
-    StreamReader Open(string path);
+    Stream Open(string path);
 
-    void Close(StreamReader file);
+    string[] GetFiles(string path);
+
+    string[] GetDirectories(string path);
+
+    string MergePaths(string path, string folderName);
+
+    string GetDirectoryName(string path);
+
+    string GetFileExtension(string path);
 }

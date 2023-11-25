@@ -12,9 +12,11 @@ public class LocalConnectCommand : ICommand
         _address = address;
     }
 
-    public void Execute(Context context)
+    public ResultExecuteCommand Execute(Context context)
     {
         context.NowAddress = _address;
         context.FileSystem = new LocalFileSystem();
+
+        return new ResultExecuteCommand.CommandWasExecutedCorrectly();
     }
 }

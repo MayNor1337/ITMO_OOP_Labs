@@ -20,9 +20,8 @@ public class StringIterator
 
         while (counter < _stringBuilder.Length && _stringBuilder[counter] != ' ')
         {
-            char currentChar = _stringBuilder[counter];
+            returnString.Append(_stringBuilder[counter]);
             counter++;
-            returnString.Append(currentChar);
         }
 
         return returnString.ToString();
@@ -30,9 +29,15 @@ public class StringIterator
 
     public StringIterator Next()
     {
-        while (_stringBuilder[_counter] != ' ')
+        while (_counter < _stringBuilder.Length && _stringBuilder[_counter] != ' ')
             _counter++;
 
+        _counter++;
         return this;
+    }
+
+    public bool IsStringFinished()
+    {
+        return _counter >= _stringBuilder.Length;
     }
 }

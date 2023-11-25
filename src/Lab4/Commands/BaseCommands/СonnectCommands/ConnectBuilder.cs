@@ -1,32 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Builders;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.СonnectCommands;
 
 public class ConnectBuilder : IConnectBuilder
 {
-    private readonly int _amountOfArguments = 2;
-    private string? _errorDescription;
-    private string? _address;
+    private string _address;
     private string? _mode;
 
-    public IBuilder TakeArgumentList(IEnumerable<string> arguments)
+    public ConnectBuilder(string address)
     {
-        string[] argumentList = arguments.ToArray();
-
-        if (argumentList.Length > _amountOfArguments)
-        {
-            _errorDescription = ErrorDescriptions.ManyArguments();
-            return this;
-        }
-
-        if (argumentList.Length > 0)
-            _address = argumentList[0];
-
-        if (argumentList.Length > 1)
-            _mode = argumentList[1];
-
-        return this;
+        _address = address;
     }
 
     public IConnectBuilder SetAddress(string address)
@@ -43,10 +26,7 @@ public class ConnectBuilder : IConnectBuilder
 
     public BuildResult Build()
     {
-        if (_errorDescription is not null)
-            return new BuildResult.Fail(_errorDescription);
-
-        if (_address is null or "" || _mode is null or "")
+        if (_mode is null or "")
             return new BuildResult.Fail(ErrorDescriptions.ParameterNotSpecified());
 
         if (_mode is "local")

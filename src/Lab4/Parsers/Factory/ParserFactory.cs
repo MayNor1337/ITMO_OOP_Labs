@@ -1,13 +1,8 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.DisconnectCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.BaseCommands.СonnectCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.CopyCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Delete;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.MoveCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.RenameCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.GoToCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
-using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Arguments;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Parsers.BaseCommand;
+using Itmo.ObjectOrientedProgramming.Lab4.Parsers.BaseCommand.ConnectArguments;
+using Itmo.ObjectOrientedProgramming.Lab4.Parsers.File;
+using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Tree;
+using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Tree.ListArguments;
 using Itmo.ObjectOrientedProgramming.Lab4.Printers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.Factory;
@@ -25,54 +20,35 @@ public class ParserFactory : IParserFactory
     // Classic commands
     private static ICommandParser DisconnectCommand()
     {
-        return new FinalCommandChain("disconnect", new DisconnectBuilder());
+        return new DisconnectParser();
     }
 
     private static ICommandParser ConnectCommand()
     {
-        return new FinalCommandChain("connect", new ConnectBuilder());
+        var argumentParser = new ModeParser();
+        return new ConnectParser(argumentParser);
     }
 
     // Tree commands
     private static ICommandParser TreeCommand()
     {
-        FinalCommandChain gotoParser = new FinalCommandChain("goto", new GoToBuilder())
-            .AddNextArgumentParser(new OneWordParser());
+        ICommandParser secondWordParser =
+            new GoToParser()
+                .AddNext(new ListParser(new DepthParser(), new ConsolePrinter()));
 
-        FinalCommandChain listParser = new FinalCommandChain("list", new ListBuilder(new ConsolePrinter()))
-            .AddNextArgumentParser(new FlagParser("-d"));
-
-        return new ClassicParser("tree")
-            .AddNextSubquery(gotoParser)
-            .AddNextSubquery(listParser);
+        return new TreeParser(secondWordParser);
     }
 
     // File commands
     private static ICommandParser FileCommand()
     {
-        FinalCommandChain showParser = new FinalCommandChain("show", new ShowBuilder())
-            .AddNextArgumentParser(new OneWordParser())
-            .AddNextArgumentParser(new FlagParser("-m"));
+        ICommandParser secondWordParser =
+            new ShowParser(new File.ShowArguments.ModeParser(), new ConsolePrinter())
+                .AddNext(new MoveParser())
+                .AddNext(new CopyParser())
+                .AddNext(new DeleteParser())
+                .AddNext(new RenameParser());
 
-        FinalCommandChain moveParser = new FinalCommandChain("move", new MoveBuilder())
-            .AddNextArgumentParser(new OneWordParser())
-            .AddNextArgumentParser(new OneWordParser());
-
-        FinalCommandChain copyParser = new FinalCommandChain("copy", new CopyBuilder())
-            .AddNextArgumentParser(new OneWordParser())
-            .AddNextArgumentParser(new OneWordParser());
-
-        FinalCommandChain deleteParser = new FinalCommandChain("delete", new DeleteBuilder())
-            .AddNextArgumentParser(new OneWordParser());
-
-        FinalCommandChain renameParser = new FinalCommandChain("rename", new RenameBuilder())
-            .AddNextArgumentParser(new OneWordParser());
-
-        return new ClassicParser("file")
-            .AddNextSubquery(showParser)
-            .AddNextSubquery(moveParser)
-            .AddNextSubquery(copyParser)
-            .AddNextSubquery(deleteParser)
-            .AddNextSubquery(renameParser);
+        return new FileParser(secondWordParser);
     }
 }
