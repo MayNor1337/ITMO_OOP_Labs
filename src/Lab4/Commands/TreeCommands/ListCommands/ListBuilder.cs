@@ -23,6 +23,6 @@ public class ListBuilder : IListBuilder
 
     public CommandBuildResult Build()
     {
-        return new CommandBuildResult.Successfully(new ListCommand(_printer, _configModel, (int)_depth));
+        return new CommandBuildResult.Successfully(new ListCommand(_printer, _configModel, _depth));
     }
 }
