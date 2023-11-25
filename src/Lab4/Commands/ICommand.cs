@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
 public interface ICommand
 {
-    void Execute(IContext context);
+    void Execute(Context context);
 }

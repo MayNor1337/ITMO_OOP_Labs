@@ -11,7 +11,7 @@ public class GoToCommand : ICommand
         _path = path;
     }
 
-    public void Execute(IContext context)
+    public void Execute(Context context)
     {
         string path = context.NowAddress + _path;
         context.NowAddress = path;

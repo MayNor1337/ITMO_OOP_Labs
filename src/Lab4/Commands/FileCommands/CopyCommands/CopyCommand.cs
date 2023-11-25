@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.CopyCommands;
 
@@ -14,14 +13,14 @@ public class CopyCommand : ICommand
         _destinationPath = destinationPath;
     }
 
-    public void Execute(IContext context)
+    public void Execute(Context context)
     {
         string path = context.NowAddress + _sourcePath;
         string destinationPath = context.NowAddress + _destinationPath;
 
-        if (File.Exists(path) == false)
+        if (context.FileSystem?.Exists(path) == false)
             return;
 
-        File.Copy(path, destinationPath);
+        context.FileSystem?.Copy(path, destinationPath);
     }
 }

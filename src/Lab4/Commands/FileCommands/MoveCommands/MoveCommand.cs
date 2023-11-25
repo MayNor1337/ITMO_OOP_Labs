@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.MoveCommands;
 
@@ -14,11 +13,11 @@ public class MoveCommand : ICommand
         _destinationPath = destinationPath;
     }
 
-    public void Execute(IContext context)
+    public void Execute(Context context)
     {
         string path = context.NowAddress + _sourcePath;
         string destinationPath = context.NowAddress + _destinationPath;
 
-        File.Move(path, destinationPath);
+        context.FileSystem?.Move(path, destinationPath);
     }
 }

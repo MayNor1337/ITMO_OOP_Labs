@@ -8,6 +8,7 @@ using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.ShowCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.GoToCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.ListCommands;
 using Itmo.ObjectOrientedProgramming.Lab4.Parsers.Arguments;
+using Itmo.ObjectOrientedProgramming.Lab4.Printers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parsers.Factory;
 

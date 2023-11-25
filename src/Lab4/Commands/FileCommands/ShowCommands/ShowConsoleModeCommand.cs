@@ -16,20 +16,24 @@ public class ShowConsoleModeCommand : ICommand
         _path = path;
     }
 
-    public void Execute(IContext context)
+    public void Execute(Context context)
     {
         string path = context.NowAddress + _path;
         if (_supportedFileTypes.Contains(GetFileExtension(path)))
             return;
 
-        var file = new StreamReader("test.txt");
+        if (context.FileSystem is null)
+            return;
+
+        StreamReader file = context.FileSystem.Open(path);
+
         while (file.EndOfStream == false)
         {
             string? line = file.ReadLine();
             Console.WriteLine(line);
         }
 
-        file.Close();
+        context.FileSystem.Close(file);
     }
 
     private static string GetFileExtension(string path)

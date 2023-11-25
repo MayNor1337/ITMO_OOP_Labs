@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 using Itmo.ObjectOrientedProgramming.Lab4.Contexts;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.RenameCommands;
@@ -15,12 +14,12 @@ public class RenameCommand : ICommand
         _name = name;
     }
 
-    public void Execute(IContext context)
+    public void Execute(Context context)
     {
         string path = context.NowAddress + _path;
         string destinationPath = BuildPathToNewFile(path);
 
-        File.Move(path, destinationPath);
+        context.FileSystem?.Move(path, destinationPath);
     }
 
     private string BuildPathToNewFile(string path)

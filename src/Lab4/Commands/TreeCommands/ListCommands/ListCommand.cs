@@ -13,7 +13,7 @@ public class ListCommand : ICommand
         _printer = printer;
     }
 
-    public void Execute(IContext context)
+    public void Execute(Context context)
     {
         // TODO: Make for the lesson
         throw new System.NotImplementedException();

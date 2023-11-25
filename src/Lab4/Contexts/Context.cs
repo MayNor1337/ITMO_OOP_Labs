@@ -1,6 +1,10 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Contexts.FileSystems;
 
-public class Context : IContext
+namespace Itmo.ObjectOrientedProgramming.Lab4.Contexts;
+
+public class Context
 {
     public string NowAddress { get; set; } = string.Empty;
+
+    public IFileSystem? FileSystem { get; set; }
 }
