@@ -99,5 +99,5 @@ dotnet_diagnostic.CA1062.severity = none
 # Empty Interface
 dotnet_diagnostic.CA1040.severity = none
 
-# Fix naming tests
+#Naming tests
 dotnet_diagnostic.CA1707.severity = none
