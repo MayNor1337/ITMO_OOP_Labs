@@ -1,3 +1,3 @@
 ﻿namespace Models.Accounts;
 
-public record Account();
+public record Account(int Id);
